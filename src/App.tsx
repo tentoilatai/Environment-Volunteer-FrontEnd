@@ -1,38 +1,52 @@
-import React, { useState } from 'react';
-import './App.scss';
-import Button from './Common/Button/Button.tsx';
-import Input from './Common/Input/Input.tsx'; 
+import React, { useState } from "react";
+import "./App.scss";
+import Button from "./Common/Button/Button.tsx";
+import DropDownField, { optionType } from "./Common/Input/DropDown/DropDownField.tsx";
+import { createPortal } from 'react-dom';
+import ModalContent from './Common/modal/modal-conten.tsx';
+
 
 function App() {
-  const [showForm, setShowForm] = useState(false);
-  const [inputValue, setInputValue] = useState("my");  // Giá trị mặc định là "my"
+  const [selected1, setSelected1] = useState<optionType | null>(null);
+  const [selected2, setSelected2] = useState<optionType | null>(null);
+  const [showModal, setShowModal] = useState<boolean>(false); // Trạng thái cho modal
 
+  // Dữ liệu cho dropdown
+  const newArr = new Array(15).fill(null);
+  const fakeOptions1 = newArr.map((_, index) => ({
+    value: `option${index}`,
+    label: `Lựa chọn số ${index}`,
+  }));
+  const fakeOptions2 = newArr.map((_, index) => ({
+    value: `option${index}`,
+    label: `Option ${index}`,
+  }));
+  
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(event.target.value);
-  };
 
   return (
     <div className="App">
-      <header className="App-header">
-        <Button 
-          content="open" 
-          onClick={() => setShowForm(true)} 
-          disabled ={showForm}
-        />
-          <Button 
-          content="close" 
-          onClick={() => setShowForm(false)} 
-          disabled ={!showForm}
-        />
-
-        {showForm && (
-          <Input 
-            value={inputValue}  // Truyền giá trị input
-            onChange={handleInputChange}  // Truyền hàm xử lý onChange
-          />
-        )}
-      </header>
+      <DropDownField
+        options={fakeOptions1}
+        onChange={setSelected1}
+        selected={selected1?.label}
+      />
+      <DropDownField
+        options={fakeOptions2}
+        onChange={setSelected2}
+        selected={selected2?.label}
+      />
+   
+      <Button 
+        content="Show modal" 
+        onClick={() => setShowModal(true)} 
+        disabled={showModal}
+      />
+      {showModal && createPortal(
+        <ModalContent onClose={() => setShowModal(false)} label='Thêm mới bảng lương'/>,
+        document.body
+      )}
+      
     </div>
   );
 }

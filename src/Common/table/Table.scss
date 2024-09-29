@@ -1,0 +1,56 @@
+$table-border-color: #ddd;
+$table-header-bg: #E7F1F5;
+$table-header-color: #333333;
+$table-row-hover-bg: #ddd;
+$table-even-row-bg: #f2f2f2;
+
+.container {
+  display: flex;
+  justify-content: center;
+
+  table {
+    width: 97%;
+   
+    border-spacing:0px; 
+
+    thead {
+      background-color: $table-even-row-bg;
+
+      th {
+        background-color: $table-header-bg;
+        color: $table-header-color;
+        padding: 8px;
+        border: 1px solid $table-border-color;
+        text-align: left;
+
+        // Thêm border-radius cho ô đầu và ô cuối
+        &:first-child {
+          border-top-left-radius: 8px;
+        }
+
+        &:last-child {
+          border-top-right-radius: 8px;
+        }
+      }
+    }
+
+    tbody {
+      tr {
+        &:nth-child(even) {
+          background-color: $table-even-row-bg;
+        }
+
+        &:hover {
+          background-color: $table-row-hover-bg;
+        }
+
+        td {
+          // Xóa gạch phân chia cho các ô dữ liệu
+          border: none;
+          padding: 8px;
+          text-align: left;
+        }
+      }
+    }
+  }
+}

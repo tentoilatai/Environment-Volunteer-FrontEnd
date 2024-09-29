@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+import React, { useState,useRef} from "react";
 import "./DropDownField.scss";
-import Button from '../../Button/Button.tsx';
+import Button from "../../Button/Button.tsx";
+import useOnChange from "./hooks/useOnChange.tsx";
+import useClickOutSide from "./hooks/useClickOutSide.tsx";
+
 
 export interface optionType {
   value: string;
@@ -9,58 +12,75 @@ export interface optionType {
 
 interface InputDropdownProps {
   options: optionType[];
+  onChange: (e: optionType) => void;
+  selected: string | undefined;
 }
 
-const DropDownField: React.FC<InputDropdownProps> = ({ options }) => {
+const DropDownField: React.FC<InputDropdownProps> = ({ 
+  options,
+  onChange,
+  selected, 
+}) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState<optionType | null>(null);
-  const [rotationCount, setRotationCount] = useState(0); // Thêm state để đếm số lần nhấp
+  const dropdownRef = useRef<HTMLDivElement | null>(null);
+  useClickOutSide(dropdownRef, setIsDropdownOpen);
+  const { handleOptionSelect, toggleDropdown } = useOnChange(
+    setIsDropdownOpen,
+    selectedOption,
+    setSelectedOption,
+    onChange
+  );
 
-  const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
-    setRotationCount(rotationCount + 1); // Tăng số lần nhấp
-  };
-
-  const handleOptionSelect = (option: optionType) => {
-    setSelectedOption(option);
-    setIsDropdownOpen(false);
-  };
+ 
 
   return (
-    <div className="input-dropdown">
+    <div className="input-dropdown" ref={dropdownRef}>
       <Button
-        className="input-show"
+        className={`input-show ${
+          isDropdownOpen ? "input-show-open" : "input-show-close"
+        }`}
         onClick={toggleDropdown}
         content={
           <div className="flex-between">
-            <div className="selected-text">
-              {selectedOption ? selectedOption.label : "Chọn"}
+            <div
+              className={`selected-text ${
+                selected ? "selected-text-option" : ""
+              }`}
+            >
+              {selected ? selected : "Chọn"}
             </div>
             <div className="dropdown">
-              <img 
-                src={'/icon-button/Vector.png'} 
-                alt="dropdown icon" 
-                className="dropdown-icon" 
-                style={{ transform: `rotate(${rotationCount * 180}deg)` }} // Quay icon theo số lần nhấp
-              />
+              <div className={isDropdownOpen ? "icon-open" : "icon-close"}>
+                <div className="drop-icon" style={{width:20}}/>
+              </div>
             </div>
           </div>
         }
       />
 
       <ul
-        className={`dropdown-list ${isDropdownOpen ? "dropdown-list-open" : "dropdown-list-close"}`}
+        className={`dropdown-list ${
+          isDropdownOpen ? "dropdown-list-open" : "dropdown-list-close"
+        }`}
       >
-        {options.map((option, index) => (
-          <li 
-            key={index} 
-            onClick={() => handleOptionSelect(option)}
-            className={selectedOption?.value === option.value ? 'selected-option' : ''}
-          >
-            {option.label}
-          </li>
-        ))}
-
+        <div className="list-wrapper">
+          {options.map((option, index) => (
+            <div className="list">
+              <li
+              key={index}
+              onClick={() => handleOptionSelect(option)}
+              className={
+                 selectedOption?.value === option.value
+                  ? "selected-option"
+                  : "option"
+              }
+            >
+              {option.label}
+            </li>
+            </div>
+          ))}
+        </div>
       </ul>
     </div>
   );

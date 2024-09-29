@@ -1,7 +1,7 @@
 .input-dropdown {
   display: inline-block;
-  position: relative; // Đặt position relative để dropdown list bám vào đây
- 
+  position: relative; // Đặt position relative để dropdown list bám vào đây 
+
   .input-show {
     border-radius: 8px;
     border: 1px solid #d6d6d6;
@@ -9,12 +9,17 @@
     background-color: #ffffff;
     width: 444px;
     height: 40px;
-    display: flex;
     align-items: center;
     cursor: pointer;
+    transition: all linear 0.1s;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+    font-size: 14px;
+
 
     &:hover {
-      border-color: #009ae3;
+      border: 1px solid #009ae3;
       background-color: #ffffff;
     }
     &:active {
@@ -30,11 +35,32 @@
       .dropdown {
         position: relative;
         margin-left: auto; 
-        .dropdown-icon {
-          width: 12px;
-          height: 6px;
-          cursor: pointer;
-          transition: transform 0.3s linear;
+        display: grid;
+        align-items: center;
+        
+        .drop-icon {
+          mask-image: url(./assets/Vector.png);
+          mask-size: cover;
+          width: 24px;
+          aspect-ratio: 1/1;
+          
+          
+        }
+
+        .icon-open {
+          transition: all linear 0.2s;
+          transform: rotateZ(0deg);
+          
+          .drop-icon {
+            background-color: red;
+          }
+        }
+        .icon-close {
+          transition: all linear 0.2s;
+          transform: rotateZ(180deg);
+          .drop-icon {
+            background-color: #858585;
+          }
         }
         
       }
@@ -43,60 +69,88 @@
         color: #adadad;
         margin-right: 8px;
       }
+      .selected-text-option{
+          color: #6b6969;
+          margin-right: 8px;
+      }
     }
+  }
+  .input-show-open {
+    border-color: red;
   }
 
   .dropdown-list {
-    position: absolute;
-    top:40px;
-    width: 444px;
-    border-radius: 8px;
-    background: #ffffff;
-    list-style: none;
-    padding: 0;
-    transition: all linear 0.1s;
-    overflow: hidden;
-    overflow-y: auto;
-    max-height: 380px; 
-    left: 10px;  
-    &::-webkit-scrollbar { 
-      width: 4px; 
-      height: 64px;
-    }
-
-    &::-webkit-scrollbar-track { 
+      position: absolute;
+      top: 40px;
+      width: 444px;
+      border-radius: 8px;
       background: #ffffff;
-    }
-
-    &::-webkit-scrollbar-thumb { 
-      background-color: #D6D6D6;
-      border-radius: 4px; 
-    }
-
-    &::-webkit-scrollbar-thumb:hover { 
-      background-color: #555;
-    }
-    li {
-      transition: all linear 0.1s;
-      cursor: pointer;
-      text-align: left; 
-      &:hover {
-        background-color: #f8f5f5;
+      list-style: none;
+      padding: 0;
+      left: 10px;
+      max-height: 380px; 
+      font-size: 14px;
+      
+ 
+  .list-wrapper {
+      max-height: 380px; 
+      overflow-y: auto;   
+      border-radius: 8px;
+      background-color: #ffffff;
+    
+      &::-webkit-scrollbar {
+        width: 4px;
+        height: 64px; 
       }
-      &.selected-option {
-        background-color: #CCEBF9;
-       
+    
+      &::-webkit-scrollbar-thumb {
+        background-color: #D6D6D6;
+        border-radius: 4px;
       }
+    
+      &::-webkit-scrollbar-thumb:hover {
+        background-color: #555;
+      }
+      .list{
+        
+        li {
+          transition: all linear 0.1s;
+          cursor: pointer;
+          text-align: left; 
+          
+          &:hover {
+            background-color: #EAEAEA;
+            border-radius: 8px;
+
+          }
+          &.selected-option {
+            background-color: #CCEBF9;
+            border-radius: 8px;
+
+          }
+        }
+      }
+      
     }
   }
+  
 
   .dropdown-list-open {
     border: 1px solid #ccc;
-
-    li {
-      padding: 8px;
-      height: auto;
+    .list-wrapper{
+      
+      .list{
+        margin-left: 8px;
+        margin-right: 8px;
+       
+        li {
+          padding: 8px;
+          height: auto;
+          overflow: hidden;
+        }
+      }
     }
+    
   }
 
   .dropdown-list-close {
@@ -106,6 +160,8 @@
     li {
       padding: 0;
       height: 0px;
+
     }
+
   }
 }
