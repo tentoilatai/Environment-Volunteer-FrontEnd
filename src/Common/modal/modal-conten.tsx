@@ -13,7 +13,7 @@ interface ModalContentProps {
   const ModalContent: React.FC<ModalContentProps> = ({ onClose, label,isOpen }) => {
     return (
       <div className={`screen-below ${isOpen ? 'open' : 'close'}`} onClick={onClose}>
-        <div className={`modal ${isOpen ? 'iopen' : 'iclose'}`} onClick={(e) => e.stopPropagation()} >
+        <div className={`modal ${isOpen ? 'open' : 'close'}`} onClick={(e) => e.stopPropagation()} >
           <div className="modal-header">
             <h2>{label}</h2>
           </div>
@@ -30,6 +30,8 @@ interface ModalContentProps {
             <Button onClick={onClose} content="Lưu" />
           </div> */}
         </div>
+
+        
       </div>
     );
   };

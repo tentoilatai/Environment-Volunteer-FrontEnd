@@ -2,7 +2,8 @@ $table-border-color: #ddd;
 $table-header-bg: #E7F1F5;
 $table-header-color: #333333;
 $table-row-hover-bg: #ddd;
-$table-even-row-bg: #f2f2f2;
+$table-even-row-bg: #F5F5F5;
+;
 
 .container {
   display: flex;
@@ -22,8 +23,7 @@ $table-even-row-bg: #f2f2f2;
         padding: 8px;
         border: 1px solid $table-border-color;
         text-align: left;
-
-        // Thêm border-radius cho ô đầu và ô cuối
+        
         &:first-child {
           border-top-left-radius: 8px;
         }
@@ -45,7 +45,7 @@ $table-even-row-bg: #f2f2f2;
         }
 
         td {
-          // Xóa gạch phân chia cho các ô dữ liệu
+         
           border: none;
           padding: 8px;
           text-align: left;

@@ -1,28 +1,42 @@
 .custom-input {
-    border-radius: 8px;
-    border: 1px solid #d6d6d6;
-    overflow: hidden;
-    padding: 0 12px;
-    box-sizing: border-box;
-    background-color: #d6d6d6;
-    max-width: 200px;
+  border-radius: 8px;
+  border: 1px solid #d6d6d6;
+  overflow: hidden;
+  padding: 0 12px;
+  box-sizing: border-box;
+
+  max-width: 200px;
+  width: 100%;
+  height: 40px;
+
+  display: flex;
+  align-items: center;
+
+  &:hover {
+    border-color: #009ae3;
+    .lop-icon {
+
+      background-color:#009ae3;
+    }
+  }
+
+  input {
     width: 100%;
-    height: 40px;
-    display: flex;
-    align-items: center;
-  
-    &:hover {
-      border-color: #009ae3;
-    }
-  
-    input {
-      width: 100%;
-      outline: none;
-      border: none;
-    }
+    outline: none;
+    border: none;
   }
-  
-  .custom-input-focus {
-    border-color: #005c88;
+
+  .lop-icon {
+    mask-image: url(./assets/icons.png);
+    mask-size: cover;
+    width: 24px;
+    aspect-ratio: 1/1;
+    display: inline-block; /* Để icon hiển thị đúng */
+    margin-right: 8px; 
+    background-color:#5C5C5C;
   }
-  
+}
+
+.custom-input-focus {
+  border-color: #005c88;
+}

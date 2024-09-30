@@ -42,10 +42,14 @@ function App() {
         onClick={() => setShowModal(true)} 
         disabled={showModal}
       />
-      {showModal && createPortal(
-        <ModalContent onClose={() => setShowModal(false)} label='Thêm mới bảng lương'/>,
-        document.body
-      )}
+         {createPortal(
+          <ModalContent
+            onClose={() => setShowModal(false)}
+            label="Thêm mới bảng lương"
+            isOpen={showModal} // Truyền isOpen vào đây
+          />,
+          document.body
+        )}
       
     </div>
   );

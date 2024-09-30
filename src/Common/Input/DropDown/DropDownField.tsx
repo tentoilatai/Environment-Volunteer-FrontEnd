@@ -14,12 +14,14 @@ interface InputDropdownProps {
   options: optionType[];
   onChange: (e: optionType) => void;
   selected: string | undefined;
+  placeholder?: string;
 }
 
 const DropDownField: React.FC<InputDropdownProps> = ({ 
   options,
   onChange,
   selected, 
+  placeholder,
 }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState<optionType | null>(null);
@@ -48,7 +50,8 @@ const DropDownField: React.FC<InputDropdownProps> = ({
                 selected ? "selected-text-option" : ""
               }`}
             >
-              {selected ? selected : "Chọn"}
+              {selected ? selected :placeholder|| "Chọn"}
+              
             </div>
             <div className="dropdown">
               <div className={isDropdownOpen ? "icon-open" : "icon-close"}>
