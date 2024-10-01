@@ -25,5 +25,5 @@ const appSlice = createSlice({
   },
 });
 
-export const { setSelected1, setInputValue } = appSlice.actions;
-export default appSlice.reducer;
+export const appActions = appSlice.actions;
+export const appReducer = appSlice.reducer;

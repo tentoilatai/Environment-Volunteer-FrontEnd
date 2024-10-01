@@ -4,7 +4,7 @@ import "./Table.scss";
 interface TableProps {
   data: any[];
   columnNames: {
-    [key: string]: { label: string; render?: (label: string) => ReactNode };
+    [key: string]: { label: string; render?: (label: string, index: number) => ReactNode };
   };
 }
 
@@ -15,30 +15,51 @@ const Table: React.FC<TableProps> = ({ data, columnNames }) => {
 
   return (
     <div className="container">
-      <table>
-        <thead>
-          <tr>
-            <th>Số TT</th>
-            {headers.map((header, index) => (
-              <th key={index}>{columnNames[header].label || ""}</th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {data.map((item, index) => (
-            <tr key={index}>
-              <td>{index + 1}</td>
-              {headers.map((key) => (
-                <td key={key}>
-                  {columnNames[key].render
-                    ? columnNames[key].render(item[key])
-                    : item[key]}
-                </td>
+      <div className="wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  color: "#001F2D",
+                  fontSize: "14px",
+                }}
+              >
+                No
+              </th>
+              {headers.map((header, index) => (
+                <th key={index}>{columnNames[header].label || ""}</th>
               ))}
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+
+          <tbody>
+            {data.map((item, index) => (
+              <tr key={index}>
+                <td
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    color: "#001F2D",
+                    fontSize: "14px",
+                  }}
+                >
+                  {index + 1}
+                </td>
+                {headers.map((key) => (
+                  <td key={key}>
+                    {columnNames[key].render
+                      ? columnNames[key].render(item[key], index)
+                      : item[key]}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

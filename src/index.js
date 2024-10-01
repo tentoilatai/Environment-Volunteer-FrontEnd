@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './home.tsx';
+import App from './screen/salary-table.tsx';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from "react-redux";
 import { store } from "./redux/store.ts";

@@ -1,0 +1,52 @@
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .arrow-icon {
+    width: 16px;
+    aspect-ratio: 1/1;
+    mask-size: cover;
+    background-color: #000; /* Màu của icon, bạn có thể thay đổi */
+    cursor: pointer;
+  }
+  
+  .start-arrow {
+    mask-image: url('./assets/start-arrow.png');
+  }
+  
+  .pre-arrow {
+    mask-image: url('./assets/pre-arrow.png');
+  }
+  
+  .next-arrow {
+    mask-image: url('./assets/next_arrow.png');
+  }
+  
+  .end-arrow {
+    mask-image: url('./assets/end-arrow.png');
+  }
+  
+  .arrow-icon.disabled {
+    opacity: 0.3;
+    pointer-events: none;
+  }
+  
+  .page-number {
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 4px;
+    background-color: #f1f1f1;
+  }
+  
+  .page-number.active {
+    background-color: #009AE3;
+    color: #fff;
+  }
+  
+  .ellipsis {
+    padding: 5px 10px;
+  }
+  

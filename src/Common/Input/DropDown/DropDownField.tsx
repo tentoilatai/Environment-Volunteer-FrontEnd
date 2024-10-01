@@ -4,7 +4,6 @@ import Button from "../../Button/Button.tsx";
 import useOnChange from "./hooks/useOnChange.tsx";
 import useClickOutSide from "./hooks/useClickOutSide.tsx";
 
-
 export interface optionType {
   value: string;
   label: string;

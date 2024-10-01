@@ -10,18 +10,18 @@ import Table from "./Common/table/table.tsx";
 import Input from "./Common/Input/input-lop.tsx";
 
 import { useDispatch, useSelector } from "react-redux";
-import { setSelected1, setInputValue } from "./redux/appSlice.ts";
-import { RootState } from "./redux/store.ts";
+import { useAppDispatch, useAppSelector } from "./redux/store.ts";
+import { appActions } from "./redux/appSlice.ts";
 
 function App() {
   // const [selected1, setSelected1] = useState<optionType | null>(null);
   // const [selected2, setSelected2] = useState<optionType | null>(null);
   // const [showModal, setShowModal] = useState<boolean>(false); // Trạng thái cho modal
   // const [inputValue, setInputValue] = useState<string>("");
-  
-  const dispatch = useDispatch();
-  const selected1 = useSelector((state: RootState) => state.app.selected1);
-  const inputValue = useSelector((state: RootState) => state.app.inputValue);
+
+  const dispatch = useAppDispatch();
+  const selected1 = useAppSelector((state) => state.app.selected1);
+  const inputValue = useAppSelector((state) => state.app.inputValue);
 
   // Dữ liệu cho dropdown
   // const newArr = new Array(15).fill(null);
@@ -59,7 +59,7 @@ function App() {
     {
       maNV: "987654",
       tenNV: "Trần Thị C",
-      mucLuong: 12000000,
+      mucLuong: 13000000,
       ngayCong: 20,
       thucNhan: "12.000.000",
     },
@@ -71,11 +71,10 @@ function App() {
       render: (label: string) => <span style={{ color: "blue" }}>{label}</span>,
     },
     mucLuong: {
-      label: "Mức Lương", render: (label: string) => (
-        <span>
-          {Number(label).toLocaleString('vi-VN')}
-        </span>
-      )
+      label: "Mức Lương",
+      render: (label: string) => (
+        <span>{Number(label).toLocaleString("vi-VN")}</span>
+      ),
     },
     ngayCong: { label: "Ngày Công" },
     tenNV: {
@@ -92,25 +91,27 @@ function App() {
     thucNhan: { label: "Thực Nhận" },
   };
 
-
-
   // Tạo danh sách mức lương không trùng lặp cho dropdown
   const uniqueSalaries = [
-    { value: "all", label: "Tất cả" }, 
+    { value: "all", label: "Tất cả" },
     ...Array.from(new Set(data.map((item) => item.mucLuong))).map((salary) => ({
       value: salary.toString(),
       label: salary.toLocaleString("vi-VN"),
     })),
   ];
 
-
   // Hàm lọc dữ liệu theo tên và mức lương
   const filteredData = data.filter((item) => {
-    const matchesName = item.tenNV.toLowerCase().includes(inputValue.toLowerCase());
+    const matchesName = item.tenNV
+      .toLowerCase()
+      .includes(inputValue.toLowerCase());
     const matchesSalary =
-      selected1 === null || selected1.value === "all" || item.mucLuong.toString() === selected1.value;
+      selected1 === null ||
+      selected1.value === "all" ||
+      item.mucLuong.toString() === selected1.value;
     return matchesName && matchesSalary;
   });
+
   return (
     <>
       {/* <div className="App">
@@ -141,14 +142,13 @@ function App() {
       </div> */}
 
       <div>
-
         <h1>Bảng Nhân Viên</h1>
         <div className="Fillter">
           <div className="seach">
             <Input
               value={inputValue}
               // onChange={setInputValue}
-              onChange={(value) => dispatch(setInputValue(value))}
+              onChange={(value) => dispatch(appActions.setInputValue(value))}
               placeholder="Nhập tên nhân viên"
             />
           </div>
@@ -156,12 +156,11 @@ function App() {
             <DropDownField
               options={uniqueSalaries}
               // onChange={setSelected1}
-              onChange={(option) => dispatch(setSelected1(option))}
+              onChange={(option) => dispatch(appActions.setSelected1(option))}
               selected={selected1?.label}
               placeholder="Lọc theo mức lương"
             />
           </div>
-
         </div>
         <Table data={filteredData} columnNames={columnNames} />
       </div>
