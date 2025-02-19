@@ -1,0 +1,49 @@
+import { Navigate } from "react-router-dom";
+import LoginPage from "../Views/Login/LoginPage";
+import ComingSoon from "../Views/ComingSoon/ComingSoon";
+import UploadXLSX from "../Components/UploadField/UploadFile";
+import { useAppSelector } from "../store";
+import ErrorPage from "../Views/Error/error-page";
+
+const routerManage = () => {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const role = useAppSelector((state) => state.authStore.info?.fullName);
+
+  const routerMain = [
+    {
+      path: "*",
+      element: <ErrorPage />,
+    },
+    {
+      path: "/login",
+      element: <Navigate to={"/list"} />,
+    },
+    {
+      path: "/visitcard",
+      element: <ComingSoon />,
+    },
+    {
+      path: "/comingsoon",
+      element: <ComingSoon />,
+    },
+    {
+      path: "/upload",
+      element: <UploadXLSX />,
+    },
+  ];
+
+  const routerLogin = [
+    {
+      path: "*",
+      element: <Navigate to={"/login"} />,
+    },
+    {
+      path: "/login",
+      element: <LoginPage />,
+    },
+  ];
+
+  return { routerLogin, routerMain };
+};
+
+export default routerManage;

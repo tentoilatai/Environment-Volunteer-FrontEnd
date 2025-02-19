@@ -1,0 +1,94 @@
+.header-container {
+  display: flex;
+  background-color: #1CB4A2;
+  justify-content: space-between;
+  height: 55px;
+  padding: 0 20px 0 5px;
+  position: relative;
+  .LogoWeb {
+    cursor: pointer;
+    margin-left: 10px;
+    // aspect-ratio: 222 / 139; /* Giữ tỷ lệ ảnh */
+    height: 100%; /* Để logo tự co theo chiều cao của header */
+    object-fit: contain; /* Đảm bảo toàn bộ ảnh hiển thị mà không bị cắt */
+}
+
+  .Loading-cover {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: all 0.3s ease;
+
+    &.active {
+      opacity: 1;
+      z-index: 1000;
+    }
+
+    .modal {
+      padding: 20px;
+      border-radius: 8px;
+      text-align: center;
+    }
+  }
+
+ 
+  .account-control {
+    transition: all 0.3s linear;
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    justify-content: space-between;
+    p {
+      color: white;
+      font-weight: 600;
+      font-size: 16px;
+    }
+
+    .account-label {
+      transition: all 0.3s linear;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      // img {
+      //   margin-right: 3px;
+      // }
+ 
+      .ImgAccount {
+           mask-image: url(../../Assets/Image/account.svg);
+           mask-size: cover;
+           width:32px;
+           height:auto;
+           background: white;
+           aspect-ratio: 1;
+           margin: 5px;
+           margin-left: 10px;
+         }
+    }
+
+    .logout-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      .logoutIcon {
+        mask-image: url(../../Assets/Image/logout.svg);
+        mask-size: cover;
+        width:32px;
+        height:auto;
+        background: white;
+        aspect-ratio: 1;
+        margin: 10px;
+        margin-left: 10px;
+      }
+    }
+   
+  }
+}
