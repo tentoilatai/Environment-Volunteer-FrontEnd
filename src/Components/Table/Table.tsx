@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./Table.scss";
 import Trash from "../../Assets/Image/trash.png";
-import Edit from "../../Assets/Svg/edit.svg";
+import Edit from "../../Assets/Image/edit.svg";
 import { useDispatch } from "react-redux";
 import { selectedIdsEmployeeActions } from "../../Reduxs/EmployeeIdsSelected/EmployeeIdsSelected";
 
