@@ -28,7 +28,7 @@ const DropDownFieldactive: React.FC<InputDropdownProps> = ({
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
   const [selectedOption, setSelectedOption] = useState<string | undefined>(
-    selected
+    selected,
   );
 
   const [dropdownHeight, setDropdownHeight] = useState<number>(0);
@@ -52,7 +52,7 @@ const DropDownFieldactive: React.FC<InputDropdownProps> = ({
         setIsDropdownOpen(false);
       }
     },
-    setSelectedOption
+    setSelectedOption,
   );
   useClickOutSide(dropdownRef, setIsDropdownOpen);
 

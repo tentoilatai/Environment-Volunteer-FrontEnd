@@ -6,8 +6,6 @@ const useOnChange = (
   onChange: (e: optionType) => void,
   setSelectedOption: any,
 ) => {
-  
-
   const toggleDropdown = () => {
     setIsDropdownOpen((prev) => !prev);
   };

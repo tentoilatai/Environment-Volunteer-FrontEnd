@@ -1,21 +1,19 @@
 import ErrorNotFound from "../../Assets/Image/404.png";
 import "./ListProject.scss";
-import Table from "../../../Components/Table/Table"
-import {fakeData, tableHeaders} from "./fakedata/fakelistproject"
+import Table from "../../../Components/Table/Table";
+import { fakeData, tableHeaders } from "./fakedata/fakelistproject";
 
 export interface Project {
-    Id: string;
-    UserId: string;
-    Title: string;
-    Logo: string;
-    Description: string;
-    Address: string;
-    limitedNumber: number;
-    Status: string;
-  }
+  Id: string;
+  UserId: string;
+  Title: string;
+  Logo: string;
+  Description: string;
+  Address: string;
+  limitedNumber: number;
+  Status: string;
+}
 const ListProject = () => {
-   
-      
   return (
     <div className="ListProject-Container">
       <Table
@@ -30,8 +28,7 @@ const ListProject = () => {
         nameFieldName="Title"
         onDelete={(id, name) => console.log("Xóa:", id, name)}
         onUpdate={(id, name) => console.log("Cập nhật:", id, name)}
-        />
-
+      />
     </div>
   );
 };

@@ -6,12 +6,12 @@ const useLogin = () => {
 
   const isValidFields = (username: string, password: string) => {
     if (!username) {
-      setValidUser("Vui lòng nhập tên tài khoản!");
+      setValidUser("Please enter account name!");
       setTimeout(() => setValidUser(""), 3000);
       return;
     }
     if (!password) {
-      setValidPass("Vui lòng nhập mật khẩu!");
+      setValidPass("Please enter password!");
       setTimeout(() => setValidPass(""), 3000);
       return;
     }

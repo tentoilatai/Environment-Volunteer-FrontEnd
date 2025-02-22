@@ -32,7 +32,7 @@ const Table: React.FC<Props> = ({
   onSelectedChange,
 }) => {
   const currentIndex = useAppSelector(
-    (state) => state.searchStore.currentPageIndex
+    (state) => state.searchStore.currentPageIndex,
   );
 
   useEffect(() => {

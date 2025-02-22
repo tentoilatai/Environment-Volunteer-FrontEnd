@@ -27,7 +27,7 @@ const DropDownField: React.FC<InputDropdownProps> = ({
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
   const [selectedOption, setSelectedOption] = useState<string | undefined>(
-    selected
+    selected,
   );
 
   // Tính toán chiều cao của dropdown
@@ -46,7 +46,7 @@ const DropDownField: React.FC<InputDropdownProps> = ({
   const { handleOptionSelect, toggleDropdown } = useOnChange(
     setIsDropdownOpen,
     onChange,
-    setSelectedOption
+    setSelectedOption,
   );
   useClickOutSide(dropdownRef, setIsDropdownOpen);
 

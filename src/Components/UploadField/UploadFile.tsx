@@ -23,7 +23,7 @@ const UploadXLSX: React.FC = () => {
         const data = new Uint8Array(arrayBuffer);
         const workbook = XLSX.read(data, { type: "array" });
         const jsonData: DataRow[] = XLSX.utils.sheet_to_json(
-          workbook.Sheets[workbook.SheetNames[0]]
+          workbook.Sheets[workbook.SheetNames[0]],
         );
         setData(jsonData); // Lưu dữ liệu vào state
         console.log(jsonData); // Xử lý dữ liệu ở đây

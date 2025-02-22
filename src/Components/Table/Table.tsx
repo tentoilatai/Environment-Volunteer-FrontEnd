@@ -163,7 +163,7 @@ const Table: React.FC<Props> = ({
                         onClick={() =>
                           onUpdate(
                             dataItem[idFieldName],
-                            dataItem[nameFieldName]
+                            dataItem[nameFieldName],
                           )
                         }
                       >
@@ -175,7 +175,7 @@ const Table: React.FC<Props> = ({
                         onClick={() =>
                           onUpdate(
                             dataItem[idFieldName],
-                            dataItem[nameFieldName]
+                            dataItem[nameFieldName],
                           )
                         }
                         alt="change"

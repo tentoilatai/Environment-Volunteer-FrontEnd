@@ -35,13 +35,13 @@ const DropDownField: React.FC<InputDropdownProps> = ({
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
   const [selectedOption, setSelectedOption] = useState<string | undefined>(
-    selected
+    selected,
   );
   const [searchTerm, setSearchTerm] = useState(""); // State để lưu giá trị tìm kiếm
   const { handleOptionSelect, toggleDropdown } = useOnChange(
     setIsDropdownOpen,
     onChange,
-    setSelectedOption
+    setSelectedOption,
   );
   useClickOutSide(dropdownRef, setIsDropdownOpen);
 
@@ -52,7 +52,7 @@ const DropDownField: React.FC<InputDropdownProps> = ({
 
   // Lọc các tùy chọn dựa trên giá trị tìm kiếm
   const filteredOptions = options.filter((option) =>
-    option.label.toLowerCase().includes(searchTerm.toLowerCase())
+    option.label.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
   return (

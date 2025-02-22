@@ -6,6 +6,13 @@ export const apiService = {
   login: (data: { username: string; password: string }) => {
     return API.post("/api/AdminAuthen/login", data);
   },
+  refresh: (data: {refreshToken: string }) => {
+    return API.post("/api/AdminAuthen/refresh", data);
+  },
+  logout: () => {
+    return API.post("/api/AdminAuthen/logout");
+  },
+  ///////////////////
   register: (data: registerUser) => {
     return API.post("/user/register", data);
   },
@@ -21,9 +28,7 @@ export const apiService = {
   updatePassword: (data: { oldPassword: string; newPassword: string }) => {
     return API.put("/user/updatePassword", data);
   },
-  logout: () => {
-    return API.get("/auth/logout");
-  },
+  
   getAllDepartment: () => {
     return API.get("/department/getAllDepartment");
   },
@@ -72,7 +77,7 @@ export const apiService = {
       name: string | undefined;
       department: { departmentId: number | undefined };
       salaryPeriod: { salaryPeriodId: number | undefined };
-    }
+    },
   ) => {
     return API.put(`/api/salary/${id}`, data);
   },
@@ -92,11 +97,11 @@ export const apiService = {
     id: string,
     data: {
       employeeIds: string[];
-    }
+    },
   ) => {
     return API.put(
       `/department/deleteExistingEmployeeFromDepartment/${id}`,
-      data
+      data,
     );
   },
   getEmployees: () => {
@@ -119,7 +124,7 @@ export const apiService = {
       email?: string;
       department?: { departmentId?: number };
       active: boolean;
-    }
+    },
   ) => {
     return API.put(`/api/employees/updateEmployee/${id}`, data);
   },
@@ -132,11 +137,11 @@ export const apiService = {
   updateWorkDay: (
     employeeId: number,
     salaryId: number,
-    data: { workDay: number }
+    data: { workDay: number },
   ) => {
     return API.put(
       `/api/salary_details/update?employeeId=${employeeId}&salaryId=${salaryId}`,
-      data
+      data,
     );
   },
   ExportDetail: (id: number) => {

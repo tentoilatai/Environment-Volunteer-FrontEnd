@@ -37,23 +37,25 @@ export const useMenuItems = (userRole: string): MenuItem[] => [
   {
     title: "Quản lý dự án",
     icon: <img src={PersonsIcon} alt="List" />,
-    subItems: [{  title: "Danh sách dự án", path: "/list-project" },
-      {  title: "Dự án chờ duyệt", path: "/list-project" },
-      {  title: "Dự án đã tham gia", path: "/list-JoinedProject" },
-      {  title: "Dự án của tôi", path: "/list-Myproject" },],
+    subItems: [
+      { title: "Danh sách dự án", path: "/list-project" },
+      { title: "Dự án chờ duyệt", path: "/list-project" },
+      { title: "Dự án đã tham gia", path: "/list-JoinedProject" },
+      { title: "Dự án của tôi", path: "/list-Myproject" },
+    ],
     // role: "admin",
   },
   {
     title: "Quản lý dự án",
     icon: <img src={ListIcon} alt="Salary" />,
     subItems: [{ title: "Danh sách bảng lương", path: "/list" }],
-  },  
+  },
 ];
 
 // Hàm lọc Options theo role
 export const filterMenuItemsByRole = (
   menuItems: MenuItem[],
-  userRole: string
+  userRole: string,
 ): MenuItem[] => {
   return menuItems.reduce<MenuItem[]>((acc, item) => {
     // Kiểm tra role của mục cha

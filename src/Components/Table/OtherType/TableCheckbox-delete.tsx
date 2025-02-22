@@ -54,7 +54,7 @@ const Table: React.FC<Props> = ({
 }) => {
   const [screenSize, setScreenSize] = useState(window.innerWidth);
   const [columnWidths, setColumnWidths] = useState<number[]>(
-    headers.map(() => columnWidth)
+    headers.map(() => columnWidth),
   ); // Chiều rộng mặc định cho các cột
   const [isIndeterminate, setIsIndeterminate] = useState<boolean>(false);
 
@@ -80,10 +80,10 @@ const Table: React.FC<Props> = ({
   };
 
   const currentIndex = useAppSelector(
-    (state) => state.searchStore.currentPageIndexST
+    (state) => state.searchStore.currentPageIndexST,
   );
   const [currentIdToDelete, setCurrentIdToDelete] = useState<number | null>(
-    null
+    null,
   );
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isEdit, setIsEdit] = useState<boolean>(false);
@@ -163,7 +163,7 @@ const Table: React.FC<Props> = ({
                 >
                   {header.label}
                 </Resizetable>
-              ) : null
+              ) : null,
             )}
             {/* {showEditButton && !shouldHideColumn("edit") && (
               <th style={{ textAlign: "right", width: "40px" }}></th>
@@ -220,7 +220,7 @@ const Table: React.FC<Props> = ({
                               ) {
                                 handleEditClick(
                                   row[editField],
-                                  row["employeeId"]
+                                  row["employeeId"],
                                 );
                               } else if (editField && !row[editField]) {
                                 handleAddClick(row[idSelect]);
@@ -247,7 +247,7 @@ const Table: React.FC<Props> = ({
                       row[header.value]
                     )}
                   </td>
-                ) : null
+                ) : null,
               )}
 
               {!shouldHideColumn("delete") && (
@@ -282,7 +282,7 @@ const Table: React.FC<Props> = ({
           iditem={currentIdToDelete !== null ? [currentIdToDelete] : []}
           id={idTable ? idTable : undefined}
         />,
-        document.body
+        document.body,
       )}
       {/* {ReactDOM.createPortal(
         <EditDay
