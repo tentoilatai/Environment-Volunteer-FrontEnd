@@ -9,7 +9,11 @@ import { authActions } from "../Reduxs/Auth/AuthSlice";
 import { apiService } from "../AxiosConfig/apiService";
 import { setTokenHeader } from "../AxiosConfig/axiosConfig";
 import Loading from "../Components/AnimationLoading/Loading";
-import { dataType,DataLoginType,apiLoginResponse } from "../AxiosConfig/DataType";
+import {
+  dataType,
+  DataLoginType,
+  apiLoginResponse,
+} from "../AxiosConfig/DataType";
 import { Client } from "@stomp/stompjs";
 import ReactDOM from "react-dom";
 import Notification from "../Components/NotifiicationForm";
@@ -22,13 +26,16 @@ const MainRouter: React.FC = () => {
   const { routerMain, routerLogin } = routerManage();
 
   const fetchingAuth = async () => {
-    const isToken = sessionStorage.getItem("token");
-    setTokenHeader(isToken);
+    const refreshToken = sessionStorage.getItem("refreshToken");
+    setTokenHeader(refreshToken);
 
-    if (isToken) {
+    if (refreshToken) {
       try {
         setLoading(true);
-        const response = (await apiService.auth()) as unknown as apiLoginResponse<DataLoginType>;
+        const response =
+          (await apiService.refresh({
+            refreshToken: refreshToken
+          })) as unknown as apiLoginResponse<DataLoginType>;
         if (response.statusCode === "Success") {
           dispatch(authActions.setAuth(true));
           dispatch(authActions.setInfo(response.data));
@@ -53,59 +60,59 @@ const MainRouter: React.FC = () => {
   const [connected, setConnected] = useState(false);
   const senderName = useAppSelector((state) => state.authStore.info?.fullName);
 
-  useEffect(() => {
-    const client = new Client({
-      brokerURL: "ws://172.16.193.123:8080/ws",
-      reconnectDelay: 5000, // tự động kết nối lại sau 5s mất kết nối
-      heartbeatIncoming: 4000, // Heartbeat settings
-      heartbeatOutgoing: 4000,
-      debug: (str) => console.log(str), // Debugging logs (optional)
+  // useEffect(() => {
+  //   const client = new Client({
+  //     brokerURL: "ws://172.16.193.123:8080/ws",
+  //     // reconnectDelay: 5000, // tự động kết nối lại sau 5s mất kết nối
+  //     heartbeatIncoming: 4000, // Heartbeat settings
+  //     heartbeatOutgoing: 4000,
+  //     debug: (str) => console.log(str), // Debugging logs (optional)
 
-      onConnect: () => {
-        console.log("Connected to WebSocket server");
+  //     onConnect: () => {
+  //       console.log("Connected to WebSocket server");
 
-        // Subscribe to a topic (e.g., /topic/notifications/{senderName})
-        client.subscribe(`/topic/notifications/${senderName}`, (message) => {
-          if (message) {
-            const data = message.body;
-            console.log("Message received:", data);
-            setNotice(data);
-            setIsFormVisible(true);
-          }
-        });
+  //       // Subscribe to a topic (e.g., /topic/notifications/{senderName})
+  //       client.subscribe(`/topic/notifications/${senderName}`, (message) => {
+  //         if (message) {
+  //           const data = message.body;
+  //           console.log("Message received:", data);
+  //           setNotice(data);
+  //           setIsFormVisible(true);
+  //         }
+  //       });
 
-        // Example of sending a message to the server
-        client.publish({
-          destination: "/user-defined", // Backend's endpoint to handle sending messages
-          body: JSON.stringify({ sender: senderName, type: "JOIN" }),
-        });
+  //       // Example of sending a message to the server
+  //       client.publish({
+  //         destination: "/user-defined", // Backend's endpoint to handle sending messages
+  //         body: JSON.stringify({ sender: senderName, type: "JOIN" }),
+  //       });
 
-        setConnected(true);
-      },
+  //       setConnected(true);
+  //     },
 
-      onDisconnect: () => {
-        console.log("WebSocket disconnected");
-        setConnected(false);
-      },
+  //     onDisconnect: () => {
+  //       console.log("WebSocket disconnected");
+  //       setConnected(false);
+  //     },
 
-      onStompError: (frame) => {
-        console.error("Broker reported error:", frame.headers["message"]);
-        console.error("Additional details:", frame.body);
-      },
-    });
+  //     onStompError: (frame) => {
+  //       console.error("Broker reported error:", frame.headers["message"]);
+  //       console.error("Additional details:", frame.body);
+  //     },
+  //   });
 
-    // Activate the WebSocket connection only if `isAuth` is true
-    if (isAuth) {
-      client.activate();
-      console.log("WebSocket activated");
-    }
+  //   // Activate the WebSocket connection only if `isAuth` is true
+  //   if (isAuth) {
+  //     client.activate();
+  //     console.log("WebSocket activated");
+  //   }
 
-    // Cleanup function to deactivate the WebSocket connection
-    return () => {
-      console.log("Cleaning up WebSocket...");
-      client.deactivate(); // Disconnect when the component unmounts or dependencies change
-    };
-  }, [senderName, isAuth]); // Added `isAuth` as a dependency
+  //   // Cleanup function to deactivate the WebSocket connection
+  //   return () => {
+  //     console.log("Cleaning up WebSocket...");
+  //     client.deactivate(); // Disconnect when the component unmounts or dependencies change
+  //   };
+  // }, [senderName, isAuth]); // Added `isAuth` as a dependency
 
   useEffect(() => {
     fetchingAuth();
@@ -161,7 +168,7 @@ const MainRouter: React.FC = () => {
           onClose={() => setIsFormVisible(false)}
           Notification={notice}
         />,
-        document.body
+        document.body,
       )}
     </div>
   );

@@ -39,12 +39,15 @@ const Header = () => {
       const isLogout =
         (await apiService.logout()) as unknown as apiResponse<nullData>;
       setTokenHeader(null);
-      if (isLogout.code === 200) {
-        console.log("Đăng xuất thành công!");
-        sessionStorage.removeItem("token");
-      } else {
-        console.log("Token không đúng!");
-      }
+      sessionStorage.removeItem("token");
+      sessionStorage.removeItem("refreshToken");
+      // if (isLogout.code === 200) {
+      //   console.log("Đăng xuất thành công!");
+      //   sessionStorage.removeItem("token");
+      //   sessionStorage.removeItem("refreshToken");
+      // } else {
+      //   console.log("Token không đúng!");
+      // }
     } catch {
       alert("Có lỗi xảy ra!");
     }
@@ -54,18 +57,23 @@ const Header = () => {
 
   return (
     <div className="header-container">
-      <img className = "LogoWeb" src={LogoHeader} alt="Logo_" onClick={handleGoHome} />
+      <img
+        className="LogoWeb"
+        src={LogoHeader}
+        alt="Logo_"
+        onClick={handleGoHome}
+      />
       <div className="account-control">
         <div className="account-label" onClick={handleProfile}>
           <div className="UserName">
-             <p>{fullname ? fullname : "No Info"}</p>
-          </div>         
+            <p>{fullname ? fullname : "No Info"}</p>
+          </div>
           {/* <img src={Account} alt="account" /> */}
           <div className="ImgAccount"></div>
         </div>
         <div className={`logout-btn ${isLoading ? "loading" : ""} `}>
           {/* <img src={Logout} alt="Logout" onClick={confirmPopup} /> */}
-          <div className="logoutIcon" onClick={confirmPopup}/> 
+          <div className="logoutIcon" onClick={confirmPopup} />
         </div>
         {isLoading && (
           <div className={`Loading-cover ${isLoading ? "active" : ""}`}>
@@ -83,7 +91,7 @@ const Header = () => {
             confirm={handleLogout}
             dataType="đăng xuất"
           />,
-          document.body
+          document.body,
         )}
       </div>
     </div>

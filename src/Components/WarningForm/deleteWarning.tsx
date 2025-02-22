@@ -44,7 +44,7 @@ const Warning: React.FC<Props> = ({
     setTokenHeader(sessionStorage.getItem("token"));
     try {
       const response = (await apiService.deleteSalary(
-        dataforSalary
+        dataforSalary,
       )) as unknown as apiResponse<nullData>;
       if (!response) {
         throw new Error("Network response was not ok");
@@ -53,7 +53,7 @@ const Warning: React.FC<Props> = ({
 
       // Gọi action để hiển thị thông báo
       dispatch(
-        noticeActions.setNotificationSuccess("Xoá bảng lương thành công")
+        noticeActions.setNotificationSuccess("Xoá bảng lương thành công"),
       );
       dispatch(noticeActions.setIsShowNoticeSuccess(true));
       // dispatch(setMessage("Xoá bảng lương thành công"));
@@ -62,7 +62,7 @@ const Warning: React.FC<Props> = ({
       console.error("Lỗi delete bảng lương:", error);
       // Sử dụng type assertion cho error
       dispatch(
-        noticeActions.setNotification("Xoá bảng lương không thành công")
+        noticeActions.setNotification("Xoá bảng lương không thành công"),
       );
       dispatch(noticeActions.setIsShowNotice(true));
     } finally {
@@ -74,7 +74,7 @@ const Warning: React.FC<Props> = ({
     try {
       const response = (await apiService.deleteSalaryDetail(
         id,
-        dataforDetail
+        dataforDetail,
       )) as unknown as apiResponse<nullData>;
 
       if (!response) {
@@ -83,7 +83,7 @@ const Warning: React.FC<Props> = ({
       onClose();
 
       dispatch(
-        noticeActions.setNotificationSuccess("Xoá  nhân viên thành công")
+        noticeActions.setNotificationSuccess("Xoá  nhân viên thành công"),
       );
       dispatch(noticeActions.setIsShowNoticeSuccess(true));
       // dispatch(setMessage("Xoá  nhân viên thành công"));
@@ -93,7 +93,7 @@ const Warning: React.FC<Props> = ({
       // Sử dụng type assertion cho error
 
       dispatch(
-        noticeActions.setNotification("Xoá  nhân viên không thành công")
+        noticeActions.setNotification("Xoá  nhân viên không thành công"),
       );
       dispatch(noticeActions.setIsShowNotice(true));
       // dispatch(setIsVisible(true));

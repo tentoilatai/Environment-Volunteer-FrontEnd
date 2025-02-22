@@ -1,20 +1,19 @@
 export type apiLoginResponse<T> = {
   statusCode: string;
   message: string;
-  data:T;
+  data: T;
 };
 export interface DataLoginType {
   refreshToken: string;
   accessToken: string;
   fullName: string;
 }
-export interface AccountInfor {
+export interface AccountInfor  {
   isAuth: boolean;
   info: DataLoginType | null;
   departmentid: string;
   departmentName: string;
 }
-
 
 ///////////
 export type apiResponse<T> = {

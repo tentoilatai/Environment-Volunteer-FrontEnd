@@ -11,6 +11,8 @@ import { apiService } from "../../AxiosConfig/apiService";
 import { authActions } from "../../Reduxs/Auth/AuthSlice";
 import { useDispatch } from "react-redux";
 import { apiLoginResponse, DataLoginType } from "../../AxiosConfig/DataType";
+import { jwtDecode } from "jwt-decode";
+
 
 const LoginPage: React.FC = () => {
   const [username, setUserName] = useState("");
@@ -54,11 +56,14 @@ const LoginPage: React.FC = () => {
         password,
       })) as unknown as apiLoginResponse<DataLoginType>;
       const token = response.data.accessToken;
+      const decodedToken = jwtDecode(token);
+      console.log("đây là mã giải ",decodedToken)
       const info = response.data;
-      setTokenHeader(token ? token : "");
+      setTokenHeader(token ? token : "",);
+      sessionStorage.setItem("refreshToken", response.data.refreshToken)
       dispatch(authActions.setAuth(true));
       dispatch(authActions.setInfo(info));
-    } catch (error: unknown | string) {
+    } catch (error: unknown | string) { 
       // Kiểm tra kiểu dữ liệu của error
       if (error instanceof Error) {
         setError(error.message);
@@ -91,46 +96,60 @@ const LoginPage: React.FC = () => {
           showError={showError}
         />
       </div>
-      <div className = "form-background"></div>
+      {/* <div className="form-background"></div> */}
       <div className="form-login">
-       <div className="modal-login"> 
-       <img src={Logo} alt="logo" />
-        <div className="input-area">
-          <div className="input-field">
-            <div className="username">
-              <p>Username</p>
-              <Input
-                onChange={handleOnchangeUser}
-                placeHolder="LDAP/Email"
-                value={username}
-                onEnterPress={handleLogin}
-              />
-              <div className={`tooltip ${validUser ? "visible" : "hidden"}`}>
-                {validUser}
+        <div className="modal-login">
+          <div className="logoLogin">
+          <img src={Logo} alt="logo" />
+          <span>LOGIN</span>
+          </div>
+         
+          <div className="input-area">
+            <div className="input-field">
+              <div className="username">
+                <p>Username</p>
+                <Input
+                  onChange={handleOnchangeUser}
+                  placeHolder="Username"
+                  value={username}
+                  onEnterPress={handleLogin}
+                />
+                <div className={`tooltip ${validUser ? "visible" : "hidden"}`}>
+                  {validUser}
+                </div>
               </div>
-            </div>
-            <div className="password" style={{ position: "relative" }}>
-            <p>Password</p>
-              <Input
-                onChange={handleOnchangePassword}
-                placeHolder="Mật khẩu"
-                value={password}
-                onEnterPress={handleLogin}
-                type="password"
-              />
-              <div className={`tooltip ${validPass ? "visible" : "hidden"}`}>
-                {validPass}
+              <div className="password" style={{ position: "relative" }}>
+                <p>Password</p>
+                <Input
+                  onChange={handleOnchangePassword}
+                  placeHolder="Password"
+                  value={password}
+                  onEnterPress={handleLogin}
+                  type="password"
+                />
+                <div className={`tooltip ${validPass ? "visible" : "hidden"}`}>
+                  {validPass}
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div className="btn-login">
-          <Button
-            onClick={handleLogin}
-            label={`${loading ? "Waiting..." : "Login"}`}
-            dis={loading}
-          />
-        </div>
+          <div className="btn-container">
+            <div className="btn-login">
+              <Button
+                onClick={handleLogin}
+                label={`${loading ? "Waiting..." : "Login"}`}
+                dis={loading}
+              />
+            </div>
+            <div className="link-btn">
+            <p >
+              Create a new account? 
+              <span onClick={()=>""}>
+                Sign up
+              </span>
+            </p>
+            </div>
+          </div>
         </div>
       </div>
     </div>

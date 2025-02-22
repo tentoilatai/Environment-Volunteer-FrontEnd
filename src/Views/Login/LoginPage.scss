@@ -1,5 +1,5 @@
 .login-container {
-  // background-image: url("../../Assets/Image/image.png");
+  background-image: url("../../Assets/Image/background.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   height: 100vh;
@@ -7,7 +7,6 @@
   justify-content: flex-end;
   align-items: center;
   position: relative;
-
 
   .Loading-cover {
     position: fixed;
@@ -40,40 +39,46 @@
     right: 20px;
     transition: all 1s linear;
   }
-.form-background{
-  background-image: url("../../Assets/Image/image.png");
-  background-size: cover;
-  width:40%;
-  height: 100vh;
-  background-position: center;
-  position: relative;
-  
-}
+  // .form-background {
+  //   background-image: url("../../Assets/Image/image.png");
+  //   background-size: cover;
+  //   width: 40%;
+  //   height: 100vh;
+  //   background-position: center;
+  //   position: relative;
+  // }
   .form-login {
-    width: 60%;
+    width: 100%;
     height: 100vh;
     display: flex;
     justify-content: center; /* Căn giữa theo chiều ngang */
     align-items: center; /* Căn giữa theo chiều dọc */
-    background-color:#00485A;
-    .modal-login{   
-      width: 600px;
-      height: 600px;
-      background-color:#00485A;
-      padding: 70px 80px;
+    .modal-login {
+      width: 600px !important;
+      height: 600px !important;
+      background-color: rgba(0, 0, 0, 0.5); // 50% độ trong suốt
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       border-radius: 8px;
       position: relative;
-      img{
-        display: block;
-        margin: auto;
+      .logoLogin {
+        text-align: center; 
+        img {
+          display: block;
+          margin: auto;
+        }
+        span {
+          display: block;
+          font-weight: bold;
+          font-size: 32px;
+          color: #47E5A8;
+        }
       }
+
       .input-area {
-        margin-top: 60px;
         h1 {
           font-weight: 600;
         }
-          
+
         .input-field {
           height: 200px;
           display: flex;
@@ -83,8 +88,13 @@
           .input-container {
             padding-left: 10px;
             border-radius: 20px;
-            width:500px;
-            height:60px;
+            width: 463.68px;
+            height: 57.42px;
+            input {
+              height: 40px;
+              font-size: 20px;
+              width: 400px;
+            }
             img {
               width: 0;
               overflow: hidden;
@@ -93,12 +103,12 @@
             }
           }
           .username {
-            p{
-              top:15px;
+            p {
+              top: 15px;
               position: relative;
               font-weight: bold;
-              font-size:18px;
-              color:#349E75;
+              font-size: 18px;
+              color: #47e5a8;
             }
             .tooltip {
               // transform: translateY(-40px) translateX(170px);
@@ -124,12 +134,12 @@
             }
           }
           .password {
-            p{
-              top:15px;
+            p {
+              top: 15px;
               position: relative;
               font-weight: bold;
-              font-size:18px;
-              color:#349E75;
+              font-size: 18px;
+              color: #47e5a8;
             }
             .tooltip {
               // transform: translateY(-40px) translateX(220px);
@@ -155,19 +165,36 @@
           }
         }
       }
-      .btn-login {
-        display:flex;
-        padding-top:100px;
+      .btn-container {
         position: relative;
-        left:45px;
-        .custom-btn {
-          width: 100px;
-          height: 40px;
-          background-color: #349E75;
+        top: 100px;
+        left: 60px;
+        display: flex;
+        justify-content: space-between; // Đẩy hai phần tử ra hai bên
+        width: calc(100% - 120px); // Đảm bảo không bị tràn khi có `left: 60px`
+        .btn-login {
+          display: flex;
+          .custom-btn {
+            width: 100px;
+            height: 40px;
+            background-color: #349e75;
+            font-weight: bold;
+          }
+        }
+        .link-btn {
+          cursor: default;
+          font-weight: bold;
+          font-size: 18px;
+          p {
+            color: white;
+            span {
+              padding-left: 5px;
+              cursor: pointer;
+              color: #47e5a8;
+            }
+          }
         }
       }
     }
-    
- 
   }
 }

@@ -2,7 +2,7 @@ import { useEffect } from "react";
 
 const useClickOutSide = (
   dropdownRef: any,
-  setIsDropdownOpen: (e: boolean) => void
+  setIsDropdownOpen: (e: boolean) => void,
 ) => {
   const handleClickOutside = (event: MouseEvent) => {
     if (

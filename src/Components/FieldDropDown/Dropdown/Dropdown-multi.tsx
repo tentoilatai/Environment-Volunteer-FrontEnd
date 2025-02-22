@@ -26,7 +26,7 @@ const MultiDropDown: React.FC<InputDropdownProps> = ({
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
   const [selectedOptions, setSelectedOptions] = useState<optionType[]>(
-    selected || []
+    selected || [],
   );
 
   // Tính toán chiều cao của dropdown

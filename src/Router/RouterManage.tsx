@@ -4,6 +4,7 @@ import ComingSoon from "../Views/ComingSoon/ComingSoon";
 import UploadXLSX from "../Components/UploadField/UploadFile";
 import { useAppSelector } from "../store";
 import ErrorPage from "../Views/Error/error-page";
+import ListProject from "../Views/AdminScreen/ProjectManagement/ListProject";
 
 const routerManage = () => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -16,10 +17,10 @@ const routerManage = () => {
     },
     {
       path: "/login",
-      element: <Navigate to={"/list"} />,
+      element: <Navigate to={"/ListProject"} />,
     },
     {
-      path: "/visitcard",
+      path: "/MyProject",
       element: <ComingSoon />,
     },
     {
@@ -27,8 +28,8 @@ const routerManage = () => {
       element: <ComingSoon />,
     },
     {
-      path: "/upload",
-      element: <UploadXLSX />,
+      path: "/ListProject",
+      element: <ListProject />,
     },
   ];
 
@@ -41,6 +42,10 @@ const routerManage = () => {
       path: "/login",
       element: <LoginPage />,
     },
+    {
+      path: "/signup",
+      element: <LoginPage />,
+    }
   ];
 
   return { routerLogin, routerMain };

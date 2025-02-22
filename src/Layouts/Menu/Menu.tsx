@@ -18,7 +18,7 @@ const Menu: React.FC = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const currentMenuOption = useAppSelector(
-    (state) => state.menuStore.indexOption
+    (state) => state.menuStore.indexOption,
   );
 
   const userRole = useAppSelector((state) => state.authStore.info?.fullName); //chỗ này cần bảo xuân cho thành role (đang lấy tạm fullname)
@@ -26,7 +26,7 @@ const Menu: React.FC = () => {
   const menuItems = useMenuItems(userRole ? userRole : "user");
   const filteredMenuItems = filterMenuItemsByRole(
     menuItems,
-    userRole ? userRole : "user"
+    userRole ? userRole : "user",
   );
 
   const toggleMenuOptions = (index: number) => {
@@ -41,7 +41,7 @@ const Menu: React.FC = () => {
   const handleSubItemClick = (
     path: string,
     index: number,
-    subIndex: number
+    subIndex: number,
   ) => {
     navigate(path);
     dispatch(menuActions.setIndexOption(index));

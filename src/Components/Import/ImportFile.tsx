@@ -37,7 +37,7 @@ const UploadXLSX: React.FC<Props> = ({ onClose, isOpen, salaryID }) => {
         const data = new Uint8Array(arrayBuffer);
         const workbook = XLSX.read(data, { type: "array" });
         const jsonData: DataRow[] = XLSX.utils.sheet_to_json(
-          workbook.Sheets[workbook.SheetNames[0]]
+          workbook.Sheets[workbook.SheetNames[0]],
         );
         setData(jsonData);
       };
@@ -67,7 +67,7 @@ const UploadXLSX: React.FC<Props> = ({ onClose, isOpen, salaryID }) => {
       .then((response) => {
         console.log("Tải lên thành công:", response.data);
         dispatch(
-          noticeActions.setNotificationSuccess("Tải lên bảng lương thành công")
+          noticeActions.setNotificationSuccess("Tải lên bảng lương thành công"),
         );
         dispatch(noticeActions.setIsShowNoticeSuccess(true));
       })
@@ -75,8 +75,8 @@ const UploadXLSX: React.FC<Props> = ({ onClose, isOpen, salaryID }) => {
         console.error("Có lỗi xảy ra:", error);
         dispatch(
           noticeActions.setNotification(
-            typeof error === "string" ? error : "Có lỗi xảy ra"
-          )
+            typeof error === "string" ? error : "Có lỗi xảy ra",
+          ),
         );
         dispatch(noticeActions.setIsShowNotice(true));
       });
@@ -113,8 +113,8 @@ const UploadXLSX: React.FC<Props> = ({ onClose, isOpen, salaryID }) => {
       console.error("Lỗi Export file mẫu:", error);
       dispatch(
         noticeActions.setNotification(
-          typeof error === "string" ? error : "Có lỗi xảy ra"
-        )
+          typeof error === "string" ? error : "Có lỗi xảy ra",
+        ),
       );
       dispatch(noticeActions.setIsShowNotice(true));
     }

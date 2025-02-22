@@ -4,7 +4,7 @@ import { optionType } from "../Dropdown";
 const useOnChange = (
   setIsDropdownOpen: Dispatch<SetStateAction<boolean>>,
   onChange: (e: optionType) => void,
-  setSelectedOption: any
+  setSelectedOption: any,
 ) => {
   const toggleDropdown = () => {
     setIsDropdownOpen((prev) => !prev);

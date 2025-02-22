@@ -35,14 +35,14 @@ const MultiSelectDrop: React.FC<InputDropdownProps> = ({
 
   const handleOptionSelect = (option: optionType) => {
     const isSelected = selected.some(
-      (selectedOption) => selectedOption.value === option.value
+      (selectedOption) => selectedOption.value === option.value,
     );
     let newSelectedOptions;
 
     if (isSelected) {
       // Nếu đã chọn, loại bỏ tùy chọn
       newSelectedOptions = selected.filter(
-        (selectedOption) => selectedOption.value !== option.value
+        (selectedOption) => selectedOption.value !== option.value,
       );
     } else {
       // Nếu chưa chọn, thêm tùy chọn
@@ -54,7 +54,7 @@ const MultiSelectDrop: React.FC<InputDropdownProps> = ({
 
   // Lọc các tùy chọn dựa trên giá trị tìm kiếm
   const filteredOptions = options.filter((option) =>
-    option.label.toLowerCase().includes(searchTerm.toLowerCase())
+    option.label.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
   return (
@@ -115,7 +115,7 @@ const MultiSelectDrop: React.FC<InputDropdownProps> = ({
               onClick={() => handleOptionSelect(option)}
               className={
                 selected.some(
-                  (selectedOption) => selectedOption.value === option.value
+                  (selectedOption) => selectedOption.value === option.value,
                 )
                   ? "selected-option"
                   : ""
