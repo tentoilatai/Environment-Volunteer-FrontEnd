@@ -5,12 +5,14 @@
   height: 55px;
   padding: 0 20px 0 5px;
   position: relative;
+
   .LogoWeb {
     cursor: pointer;
     margin-left: 10px;
-    // aspect-ratio: 222 / 139; /* Giữ tỷ lệ ảnh */
-    height: 100%; /* Để logo tự co theo chiều cao của header */
-    object-fit: contain; /* Đảm bảo toàn bộ ảnh hiển thị mà không bị cắt */
+    height: 100%;
+    /* Để logo tự co theo chiều cao của header */
+    object-fit: contain;
+    /* Đảm bảo toàn bộ ảnh hiển thị mà không bị cắt */
   }
 
   .Loading-cover {
@@ -44,6 +46,7 @@
     align-items: center;
     width: fit-content;
     justify-content: space-between;
+
     p {
       color: white;
       font-weight: 600;
@@ -77,6 +80,7 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
+
       .logoutIcon {
         mask-image: url(../../Assets/Image/logout.svg);
         mask-size: cover;
