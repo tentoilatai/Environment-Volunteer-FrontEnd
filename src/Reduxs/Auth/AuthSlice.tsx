@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AuthInfor, DataLoginType } from "../../AxiosConfig/DataType";
 
-const initialState: AuthInfor = {
-  isAuth: false,
+const initialState: AccountInfor = {
+  isAuth: true,
   info: null,
   // unique_name: "",
   // userId: "",

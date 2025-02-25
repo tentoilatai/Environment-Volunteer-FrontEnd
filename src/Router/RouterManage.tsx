@@ -5,7 +5,7 @@ import ComingSoon from "../Views/ComingSoon/ComingSoon";
 import { useAppSelector } from "../store";
 import ErrorPage from "../Views/Error/error-page";
 import ListProject from "../Views/AdminScreen/ProjectManagement/ListProject";
-
+import Home from "../Views/UserScreen/Home/Home";
 const routerManage = () => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const role = useAppSelector((state) => state.authStore.info?.fullName);// này là role không phải fullname
@@ -35,6 +35,10 @@ const routerManage = () => {
       path: "/ListProject",
       element: <ListProject />,
     },
+    {
+      path: "/Home",
+      element: <Home />,
+    }
   ];
   const routerUser = [
     {
