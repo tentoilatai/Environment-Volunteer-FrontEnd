@@ -58,7 +58,7 @@ const MainRouter: React.FC = () => {
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [notice, setNotice] = useState("");
   const [connected, setConnected] = useState(false);
-  const senderName = useAppSelector((state) => state.authStore.info?.fullName);
+  const senderName = useAppSelector((state) => state.ProfileStore.unique_name);
 
   // useEffect(() => {
   //   const client = new Client({

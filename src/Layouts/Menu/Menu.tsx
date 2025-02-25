@@ -21,7 +21,7 @@ const Menu: React.FC = () => {
     (state) => state.menuStore.indexOption,
   );
 
-  const userRole = useAppSelector((state) => state.authStore.info?.fullName); //chỗ này cần bảo xuân cho thành role (đang lấy tạm fullname)
+  const userRole = useAppSelector((state) => state.authStore.info?.fullName); // chỗ này là role không phải fullname
 
   const menuItems = useMenuItems(userRole ? userRole : "user");
   const filteredMenuItems = filterMenuItemsByRole(

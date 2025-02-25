@@ -8,11 +8,15 @@ export interface DataLoginType {
   accessToken: string;
   fullName: string;
 }
-export interface AccountInfor  {
+export interface AuthInfor  {
   isAuth: boolean;
   info: DataLoginType | null;
-  departmentid: string;
-  departmentName: string;
+  // unique_name: string;
+  // userId: string;
+}
+export interface Profile  {
+  unique_name: string;
+  userId: string;
 }
 
 ///////////

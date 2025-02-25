@@ -24,14 +24,14 @@ const ConfirmForm: React.FC<Props> = ({
         className={`modal-delete ${isOpen ? "open" : "close"}`}
         onClick={(e) => e.stopPropagation()}
       >
-        <h1>Thông báo!</h1>
+        <h1>Warning</h1>
         <div className="form-input">
-          <h2>Xác nhận {dataType} ?</h2>
+          <h2>Confirm {dataType} ?</h2>
         </div>
         <div className="form-btn">
-          <Button label="Huỷ" onClick={onClose} className="btn-exit" />
+          <Button label="Cancel" onClick={onClose} className="btn-exit" />
           <Button
-            label="Xác nhận"
+            label="OK"
             onClick={() => confirm()}
             className="btn-delete"
           />

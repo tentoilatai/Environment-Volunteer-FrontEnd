@@ -4,8 +4,6 @@ import LogoHeader from "../../Assets/Image/LogoText.svg";
 import { useAppDispatch, useAppSelector } from "../../store";
 import { authActions } from "../../Reduxs/Auth/AuthSlice";
 import { apiService } from "../../AxiosConfig/apiService";
-import Logout from "../../Assets/Image/logout.png";
-import Account from "../../Assets/Image/account.svg";
 import Loading from "../../Components/AnimationLoading/Loading";
 import { useNavigate } from "react-router-dom";
 import { setTokenHeader } from "../../AxiosConfig/axiosConfig";
@@ -16,7 +14,7 @@ import ConfirmForm from "../../Components/Notification/ModalNotice/ConfirmForm";
 const Header = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const fullname = useAppSelector((state) => state.authStore.info?.fullName);
+  const fullname = useAppSelector((state) => state.ProfileStore.unique_name);
   const [confirmLogout, setConfirmLogout] = useState(false);
   const [isLoading, setLoading] = useState(false);
 
@@ -89,7 +87,7 @@ const Header = () => {
             isOpen={confirmLogout}
             onClose={() => setConfirmLogout(false)}
             confirm={handleLogout}
-            dataType="đăng xuất"
+            dataType="logout"
           />,
           document.body,
         )}
