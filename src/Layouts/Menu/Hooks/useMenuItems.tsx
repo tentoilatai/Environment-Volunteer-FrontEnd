@@ -13,7 +13,7 @@ export interface MenuItem {
   title: string;
   icon: JSX.Element;
   subItems: subItems[];
-  role?: string;
+  role: string;
 }
 
 // Hàm tạo subItems dựa trên userRole
@@ -33,6 +33,13 @@ export const useMenuItems = (userRole: string): MenuItem[] => [
     title: "Dự án của tôi ",
     icon: <img src={ManageDepart} alt="Persons" />,
     subItems: createSubItems(userRole),
+    role:  userRole === "admin" ? "admin" : "",
+  },
+  {
+    title: "Dự án của tôi ",
+    icon: <img src={ManageDepart} alt="Persons" />,
+    subItems: createSubItems(userRole),
+    role:  userRole === "admin" ? "admin" : "",
   },
   {
     title: "Quản lý dự án",
@@ -42,18 +49,20 @@ export const useMenuItems = (userRole: string): MenuItem[] => [
       { title: "Dự án chờ duyệt", path: "/list-project" },
       { title: "Dự án đã tham gia", path: "/list-JoinedProject" },
       { title: "Dự án của tôi", path: "/list-Myproject" },
+ 
     ],
-    // role: "admin",
+    role: userRole === "admin" ? "admin" : "",
   },
   {
     title: "Quản lý dự án",
     icon: <img src={ListIcon} alt="Salary" />,
     subItems: [{ title: "Danh sách bảng lương", path: "/list" }],
+    role:  userRole === "admin" ? "admin" : "user",
   },
 ];
 
 // Hàm lọc Options theo role
-export const filterMenuItemsByRole = (
+export const filterMenuItemsByRole = (       
   menuItems: MenuItem[],
   userRole: string,
 ): MenuItem[] => {

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./LoginPage.scss";
 import Logo from "../../Assets/Image/logo.png";
 import Input from "../../Components/Input/Input";
+import { useNavigate } from "react-router-dom";
 import Button from "../../Components/Button/Button";
 import NoticeError from "../../Components/Notification/ErrorAlert/NoticeError";
 import Loading from "../../Components/AnimationLoading/Loading";
@@ -15,6 +16,7 @@ import { jwtDecode } from "jwt-decode";
 
 
 const LoginPage: React.FC = () => {
+  const navigate = useNavigate();
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -56,8 +58,10 @@ const LoginPage: React.FC = () => {
         password,
       })) as unknown as apiLoginResponse<DataLoginType>;
       const token = response.data.accessToken;
-      const decodedToken = jwtDecode(token);
-      console.log("đây là mã giải ",decodedToken)
+      const decodedToken = jwtDecode<{ unique_name: string; userId: string }>(token);
+      console.log("đây là mã giải ", decodedToken.unique_name);
+      dispatch(authActions.setRole(decodedToken.unique_name))
+
       const info = response.data;
       setTokenHeader(token ? token : "",);
       sessionStorage.setItem("refreshToken", response.data.refreshToken)
@@ -79,7 +83,9 @@ const LoginPage: React.FC = () => {
     }
     setLoading(false);
   };
-
+  const handleNavigate = () => {
+    navigate("/signup"); // Điều hướng đến trang "/new-route"
+  };
   return (
     <div className="login-container">
       <div className={`Loading-cover ${loading ? "active" : ""}`}>
@@ -144,7 +150,7 @@ const LoginPage: React.FC = () => {
             <div className="link-btn">
             <p >
               Create a new account? 
-              <span onClick={()=>""}>
+              <span onClick={handleNavigate}>
                 Sign up
               </span>
             </p>

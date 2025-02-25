@@ -1,11 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { AccountInfor, DataLoginType } from "../../AxiosConfig/DataType";
+import { AuthInfor, DataLoginType } from "../../AxiosConfig/DataType";
 
-const initialState: AccountInfor = {
+const initialState: AuthInfor = {
   isAuth: true,
   info: null,
-  departmentid: "",
-  departmentName: "",
+  // unique_name: "",
+  // userId: "",
+  role:""
 };
 
 const authSlice = createSlice({
@@ -18,13 +19,17 @@ const authSlice = createSlice({
     setInfo: (state, action: PayloadAction<DataLoginType | null>) => {
       state.info = action.payload;
     },
+    setRole: (state, action: PayloadAction<string | "">) => {
+      state.role = action.payload;
+    },
+    // setUserId: (state, action: PayloadAction<string>) => {
+    //   state.userId = action.payload;
+    // },
+    // setUnique_name: (state, action: PayloadAction<string>) => {
+    //   state.unique_name = action.payload;
+    // },
     ///
-    setDepartmentid: (state, action: PayloadAction<string>) => {
-      state.departmentid = action.payload;
-    },
-    setDepartmentName: (state, action: PayloadAction<string>) => {
-      state.departmentName = action.payload;
-    },
+   
   },
 });
 

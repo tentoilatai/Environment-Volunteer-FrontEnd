@@ -5,11 +5,8 @@ const Loading = () => {
   return (
     <div>
       <section className="dots-container">
-        <div className="dot"></div>
-        <div className="dot"></div>
-        <div className="dot"></div>
-        <div className="dot"></div>
-        <div className="dot"></div>
+        <div className="dot"> 
+          <p style={{position:"relative", top:"10px"}}> Loading</p></div>
       </section>
     </div>
   );

@@ -12,6 +12,9 @@ export const apiService = {
   logout: () => {
     return API.post("/api/AdminAuthen/logout");
   },
+  signup:  (data: {  username: string, fullName:string, email:string, password: string, confirmPassword: string }) => {
+    return API.post("/api/AdminAuthen/signUp",data);
+  },
   ///////////////////
   register: (data: registerUser) => {
     return API.post("/user/register", data);

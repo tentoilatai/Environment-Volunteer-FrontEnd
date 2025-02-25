@@ -197,4 +197,185 @@
       }
     }
   }
+  .form-signup {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center; /* Căn giữa theo chiều ngang */
+    align-items: center; /* Căn giữa theo chiều dọc */
+    .modal-login {
+      width: 1203px !important;
+      height: 765px !important;
+      background-color: rgba(0, 0, 0, 0.5); // 50% độ trong suốt
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      position: relative;
+      .logoLogin {
+        text-align: center; 
+        img {
+          display: block;
+          margin: auto;
+        }
+        span {
+          display: block;
+          font-weight: bold;
+          font-size: 32px;
+          color: #47E5A8;
+        }
+      }
+
+      .input-area {
+        position: relative;
+        top:-10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        margin: auto;
+        h1 {
+          font-weight: 600;
+        }
+
+        .input-field {
+          height: auto;
+          display: flex;
+          align-items: center;
+          flex-direction: column;
+          position: relative;
+          // gap: 50px;
+          .input-container {
+            padding-left: 10px;
+            border-radius: 20px;
+            width: 637px;
+            height: 57.42px;
+            input {
+              height: 40px;
+              font-size: 20px;
+              width: 400px;
+            }
+            img {
+              width: 0;
+              overflow: hidden;
+              padding: 0;
+              margin: 0;
+            }
+          }
+          .username {
+            p {
+              top: 15px;
+              position: relative;
+              font-weight: bold;
+              font-size: 18px;
+              color: #47e5a8;
+            }
+            .tooltip {
+              // transform: translateY(-40px) translateX(170px);
+              position: absolute;
+              // right: 0;
+              // background-color: rgba(255, 111, 111, 1);
+              // color: white;
+              color: red;
+              border-radius: 4px;
+              width: 200px;
+              opacity: 1;
+              transition: all 0.3s ease;
+              z-index: 1000;
+              // clip-path: polygon(12px 0, 100% 0, 100% 100%, 12px 100%, 0 50%);
+              white-space: nowrap;
+              overflow: hidden;
+              &.hidden {
+                height: 18px;
+                width: 0px;
+                overflow: hidden;
+                opacity: 0;
+              }
+            }
+          }}
+         
+        
+        .password-container {
+          display: flex;
+          justify-content: space-between;
+          flex-direction: row;
+          gap: 25px;
+          .input-container {
+            padding-left: 10px;
+            border-radius: 20px;
+            width: 300px;
+            height: 57.42px;
+            input {
+              height: 40px;
+              font-size: 20px;
+              width: 200px;
+            }
+            img {
+              width: 0;
+              overflow: hidden;
+              padding: 0;
+              margin: 0;
+            }
+          }
+          .password {
+            p {
+              top: 15px;
+              position: relative;
+              font-weight: bold;
+              font-size: 18px;
+              color: #47e5a8;
+            }
+            .tooltip {
+              // transform: translateY(-40px) translateX(220px);
+              position: absolute;
+              // right: 0;
+              // background-color: rgba(255, 111, 111, 1);
+              color: red;
+              border-radius: 4px;
+              width: 600px;
+              opacity: 1;
+              transition: all 0.3s ease;
+              z-index: 1000;
+              // clip-path: polygon(12px 0, 100% 0, 100% 100%, 12px 100%, 0 50%);
+              white-space: nowrap;
+              overflow: hidden;
+              &.hidden {
+                height: 18px;
+                width: 0px;
+                overflow: hidden;
+                opacity: 0;
+              }
+            }
+          }
+        }}
+      .btn-container {
+        
+        position: relative;
+        top:30px;
+        display: flex;
+        justify-content: center; // Đẩy hai phần tử ra hai bên
+        gap: 50px;
+        .btn-login {
+          display: flex;
+          .custom-btn {
+            width: 100px;
+            height: 40px;
+            background-color: #349e75;
+            font-weight: bold;
+          }
+        }
+        .link-btn {
+          cursor: default;
+          font-weight: bold;
+          font-size: 18px;
+          p {
+            color: white;
+            span {
+              padding-left: 5px;
+              cursor: pointer;
+              color: #47e5a8;
+            }
+          }
+        }
+      }
+    }
+  }
 }
