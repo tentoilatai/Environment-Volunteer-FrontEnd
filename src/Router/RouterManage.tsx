@@ -34,10 +34,6 @@ const routerManage = () => {
     {
       path: "/ListProject",
       element: <ListProject />,
-    },
-    {
-      path: "/Home",
-      element: <Home />,
     }
   ];
   const routerUser = [
@@ -54,13 +50,14 @@ const routerManage = () => {
       element: <Navigate to={"/comingsoon"} />,
     },
     {
-      path: "/home",
-      element: <ComingSoon />,
-    },
-    {
       path: "/comingsoon",
       element: <ComingSoon />,
     },
+    ,
+    {
+      path: "/Home",
+      element: <Home />,
+    }
   ];
 
   const routerLogin = [
