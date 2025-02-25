@@ -10,7 +10,7 @@ const routerManage = () => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const role = useAppSelector((state) => state.authStore.info?.fullName);// này là role không phải fullname
 
-  const routerMain = [
+  const routerAdmin = [
     {
       path: "*",
       element: <ErrorPage />,
@@ -36,6 +36,28 @@ const routerManage = () => {
       element: <ListProject />,
     },
   ];
+  const routerUser = [
+    {
+      path: "*",
+      element: <ErrorPage />,
+    },
+    {
+      path: "/login",
+      element: <Navigate to={"/comingsoon"} />,
+    },
+    {
+      path: "/signup",
+      element: <Navigate to={"/comingsoon"} />,
+    },
+    {
+      path: "/home",
+      element: <ComingSoon />,
+    },
+    {
+      path: "/comingsoon",
+      element: <ComingSoon />,
+    },
+  ];
 
   const routerLogin = [
     {
@@ -52,7 +74,7 @@ const routerManage = () => {
     }
   ];
 
-  return { routerLogin, routerMain };
+  return { routerLogin, routerAdmin, routerUser };
 };
 
 export default routerManage;

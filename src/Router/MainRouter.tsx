@@ -10,11 +10,9 @@ import { apiService } from "../AxiosConfig/apiService";
 import { setTokenHeader } from "../AxiosConfig/axiosConfig";
 import Loading from "../Components/AnimationLoading/Loading";
 import {
-  dataType,
   DataLoginType,
   apiLoginResponse,
 } from "../AxiosConfig/DataType";
-import { Client } from "@stomp/stompjs";
 import ReactDOM from "react-dom";
 import Notification from "../Components/NotifiicationForm";
 
@@ -23,7 +21,7 @@ const MainRouter: React.FC = () => {
   const [initCheckLogin, setInitCheckLogin] = useState(true);
   const [loading, setLoading] = useState(false);
   const isAuth = useAppSelector((state) => state.authStore.isAuth);
-  const { routerMain, routerLogin } = routerManage();
+  const { routerAdmin, routerLogin, routerUser } = routerManage();
 
   const fetchingAuth = async () => {
     const refreshToken = sessionStorage.getItem("refreshToken");
@@ -57,63 +55,9 @@ const MainRouter: React.FC = () => {
 
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [notice, setNotice] = useState("");
-  const [connected, setConnected] = useState(false);
-  const senderName = useAppSelector((state) => state.ProfileStore.unique_name);
+  const role = useAppSelector((state) => state.authStore.role);
 
-  // useEffect(() => {
-  //   const client = new Client({
-  //     brokerURL: "ws://172.16.193.123:8080/ws",
-  //     // reconnectDelay: 5000, // tự động kết nối lại sau 5s mất kết nối
-  //     heartbeatIncoming: 4000, // Heartbeat settings
-  //     heartbeatOutgoing: 4000,
-  //     debug: (str) => console.log(str), // Debugging logs (optional)
-
-  //     onConnect: () => {
-  //       console.log("Connected to WebSocket server");
-
-  //       // Subscribe to a topic (e.g., /topic/notifications/{senderName})
-  //       client.subscribe(`/topic/notifications/${senderName}`, (message) => {
-  //         if (message) {
-  //           const data = message.body;
-  //           console.log("Message received:", data);
-  //           setNotice(data);
-  //           setIsFormVisible(true);
-  //         }
-  //       });
-
-  //       // Example of sending a message to the server
-  //       client.publish({
-  //         destination: "/user-defined", // Backend's endpoint to handle sending messages
-  //         body: JSON.stringify({ sender: senderName, type: "JOIN" }),
-  //       });
-
-  //       setConnected(true);
-  //     },
-
-  //     onDisconnect: () => {
-  //       console.log("WebSocket disconnected");
-  //       setConnected(false);
-  //     },
-
-  //     onStompError: (frame) => {
-  //       console.error("Broker reported error:", frame.headers["message"]);
-  //       console.error("Additional details:", frame.body);
-  //     },
-  //   });
-
-  //   // Activate the WebSocket connection only if `isAuth` is true
-  //   if (isAuth) {
-  //     client.activate();
-  //     console.log("WebSocket activated");
-  //   }
-
-  //   // Cleanup function to deactivate the WebSocket connection
-  //   return () => {
-  //     console.log("Cleaning up WebSocket...");
-  //     client.deactivate(); // Disconnect when the component unmounts or dependencies change
-  //   };
-  // }, [senderName, isAuth]); // Added `isAuth` as a dependency
-
+ 
   useEffect(() => {
     fetchingAuth();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -137,7 +81,7 @@ const MainRouter: React.FC = () => {
 
       {!initCheckLogin ? (
         isAuth ? (
-          <>
+          role === "admin" ? <>
             <Header />
             <div className="content">
               <div className="menu">
@@ -145,13 +89,31 @@ const MainRouter: React.FC = () => {
               </div>
               <div className="main">
                 <Routes>
-                  {routerMain.map((route, i) => (
+                  {routerAdmin.map((route, i) => (
+                    <Route {...route} key={i} />
+                  ))}
+                </Routes>
+              </div>
+            </div>
+          </> :  <>
+            <Header />
+            <div className="content">
+              <div className="menu">
+                <Menu />
+              </div>
+              <div className="main">
+                <Routes>
+                  {routerUser.map((route, i) => (
                     <Route {...route} key={i} />
                   ))}
                 </Routes>
               </div>
             </div>
           </>
+
+
+          
+         
         ) : (
           <Routes>
             {routerLogin.map((route, i) => (

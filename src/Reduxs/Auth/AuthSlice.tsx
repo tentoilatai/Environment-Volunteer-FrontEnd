@@ -6,6 +6,7 @@ const initialState: AuthInfor = {
   info: null,
   // unique_name: "",
   // userId: "",
+  role:""
 };
 
 const authSlice = createSlice({
@@ -17,6 +18,9 @@ const authSlice = createSlice({
     },
     setInfo: (state, action: PayloadAction<DataLoginType | null>) => {
       state.info = action.payload;
+    },
+    setRole: (state, action: PayloadAction<string | "">) => {
+      state.role = action.payload;
     },
     // setUserId: (state, action: PayloadAction<string>) => {
     //   state.userId = action.payload;

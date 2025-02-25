@@ -60,6 +60,7 @@ const LoginPage: React.FC = () => {
       const token = response.data.accessToken;
       const decodedToken = jwtDecode<{ unique_name: string; userId: string }>(token);
       console.log("đây là mã giải ", decodedToken.unique_name);
+      dispatch(authActions.setRole(decodedToken.unique_name))
 
       const info = response.data;
       setTokenHeader(token ? token : "",);
