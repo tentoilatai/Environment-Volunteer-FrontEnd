@@ -15,6 +15,9 @@ import {
 } from "../AxiosConfig/DataType";
 import ReactDOM from "react-dom";
 import Notification from "../Components/NotifiicationForm";
+import { jwtDecode } from "jwt-decode";
+import { profileActions } from "../Reduxs/UserInfor/ProfileSlice";
+
 
 const MainRouter: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -37,6 +40,23 @@ const MainRouter: React.FC = () => {
         if (response.statusCode === "Success") {
           dispatch(authActions.setAuth(true));
           dispatch(authActions.setInfo(response.data));
+          console.log("data sau refresh ",response.data)
+
+
+
+          const info = response.data;
+          const token = response.data.accessToken;
+          const decodedToken = jwtDecode<{ unique_name: string; userId: string }>(token);
+          console.log("đây là mã giải ", decodedToken.unique_name);
+          
+          setTokenHeader(token ? token : "",);
+          dispatch(authActions.setRole(response.data.fullName))
+                dispatch(profileActions.setUnique_name(response.data.fullName))
+                
+               
+                sessionStorage.setItem("refreshToken", response.data.refreshToken)
+                dispatch(authActions.setAuth(true));
+                dispatch(authActions.setInfo(info));
         } else {
           dispatch(authActions.setAuth(false));
         }
