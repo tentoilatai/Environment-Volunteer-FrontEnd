@@ -1,88 +1,120 @@
 import PersonsIcon from "../../../Assets/Image/person.png";
 import ListIcon from "../../../Assets/Image/project.svg";
 import ManageDepart from "../../../Assets/Image/my project.svg";
+import Arrow from "../../../Assets/Image/ArrowDown.svg";
 
 interface subItems {
   title: string;
   path: string;
   role?: string;
   icon?: JSX.Element;
+  
 }
 
 export interface MenuItem {
   title: string;
   icon: JSX.Element;
-  subItems: subItems[];
+  subItems?: subItems[];
   role: string;
+  path?: string;
+  arrow: boolean;
 }
 
-// Hàm tạo subItems dựa trên userRole
-const createSubItems = (userRole: string): subItems[] => {
-  return [
-    { title: "Quản lý dự án", path: "/list-account", role: "admin" },
-    {
-      title: "Phòng ban",
-      path: userRole === "admin" ? "/list-department" : "/list-department",
-      role: userRole === "admin" ? "admin" : "user",
-    },
-  ];
-};
+// // Hàm tạo subItems dựa trên userRole
+// const createSubItems = (userRole: string): subItems[] => {
+//   return [
+//     { title: "Quản lý dự án", path: "/list-account", role: "admin" },
+//     {
+//       title: "Phòng ban",
+//       path: userRole === "admin" ? "/list-department" : "/list-department",
+//       role: userRole === "admin" ? "admin" : "user",
+//     },
+//   ];
+// };
 
-export const useMenuItems = (userRole: string): MenuItem[] => [
+export const useMenuItems = (): MenuItem[] => [
   {
-    title: "Dự án của tôi ",
+    title: "Home",
     icon: <img src={ManageDepart} alt="Persons" />,
-    subItems: createSubItems(userRole),
-    role:  userRole === "admin" ? "admin" : "",
+    path:"/Home",
+    role:"user",
+    arrow: false
   },
   {
-    title: "Dự án của tôi ",
-    icon: <img src={ManageDepart} alt="Persons" />,
-    subItems: createSubItems(userRole),
-    role:  userRole === "admin" ? "admin" : "",
-  },
-  {
-    title: "Quản lý dự án",
+    title: "Project Management",
     icon: <img src={PersonsIcon} alt="List" />,
     subItems: [
-      { title: "Danh sách dự án", path: "/list-project" },
-      { title: "Dự án chờ duyệt", path: "/list-project" },
-      { title: "Dự án đã tham gia", path: "/list-JoinedProject" },
-      { title: "Dự án của tôi", path: "/list-Myproject" },
- 
+      { title: "My Project", path: "/my-project" },
+      { title: "Project Participated", path: "/list-project" },  
     ],
-    role: userRole === "admin" ? "admin" : "",
+    role: "User",
+    arrow: true
   },
   {
-    title: "Quản lý dự án",
+    title: "Project result",
     icon: <img src={ListIcon} alt="Salary" />,
-    subItems: [{ title: "Danh sách bảng lương", path: "/list" }],
-    role:  userRole === "admin" ? "admin" : "user",
+    path:"/ProjectResult",
+    role:  "User",
+    arrow: false
+  },
+  {
+    title: "All project",
+    icon: <img src={ListIcon} alt="Salary" />,
+    path:"/ProjectResult",
+    role:  "User",
+    arrow: false
+  },
+  {
+    title: "User Management",
+    icon: <img src={PersonsIcon} alt="List" />,
+    subItems: [
+      { title: "List Account", path: "/list-project" },
+    ],
+    role: "Admin",
+    arrow: true
+  },
+  {
+    title: "Project Management",
+    icon: <img src={PersonsIcon} alt="List" />,
+    subItems: [
+      { title: "List Project", path: "/list-project" },
+      { title: "My Project", path: "/list-project" },  
+    ],
+    role: "Admin",
+   arrow: true
+  },
+  {
+    title: "Campaign Management",
+    icon: <img src={ListIcon} alt="Salary" />,
+    subItems: [{ title: "List Campaign", path: "/list" }],
+    role:  "Admin",
+    arrow: true
+  },
+  {
+    title: "Statistics management",
+    icon: <img src={ListIcon} alt="Salary" />,
+    subItems: [{ title: "Statistics", path: "/list" }],
+    role:  "Admin",
+    arrow: true
   },
 ];
 
 // Hàm lọc Options theo role
-export const filterMenuItemsByRole = (       
+export const filterMenuItemsByRole = (
   menuItems: MenuItem[],
-  userRole: string,
+  userRole: string
 ): MenuItem[] => {
-  return menuItems.reduce<MenuItem[]>((acc, item) => {
-    // Kiểm tra role của mục cha
-    if (userRole === "user" && item.role === "admin") {
-      return acc; // Nếu là user và item là admin, bỏ qua mục này
-    }
-
-    // Lọc subItems
-    const filteredSubItems =
-      item.subItems?.filter((subItem) => {
-        return userRole !== "user" || subItem.role !== "admin";
-      }) || [];
-
-    // Nếu mục cha có subItems đã lọc hoặc mục cha là không phải admin
-    if (filteredSubItems.length > 0 || userRole !== "user") {
-      acc.push({ ...item, subItems: filteredSubItems });
-    }
-
-    return acc;
-  }, []);
+  // Nếu userRole không phải 'admin' hoặc 'user', gán mặc định là 'user'
+  const normalizedRole = ["admin", "user"].includes(userRole.toLowerCase()) ? userRole.toLowerCase() : "user";
+  return menuItems
+    .filter((item) => item.role.toLowerCase() === normalizedRole) // Lọc mục cha
+    .map((item) => ({
+      ...item,
+      subItems: item.subItems
+        ? item.subItems.filter(
+            (subItem) =>
+              !subItem.role || subItem.role.toLowerCase() === userRole.toLowerCase()
+          ) // Lọc subItems
+        : undefined,
+    }));
 };

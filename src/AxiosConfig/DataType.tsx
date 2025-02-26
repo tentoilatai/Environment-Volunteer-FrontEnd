@@ -11,9 +11,8 @@ export interface DataLoginType {
 export interface AuthInfor  {
   isAuth: boolean;
   info: DataLoginType | null;
-  // unique_name: string;
   role: string;
-  // userId: string;
+
 }
 export interface Profile  {
   unique_name: string;

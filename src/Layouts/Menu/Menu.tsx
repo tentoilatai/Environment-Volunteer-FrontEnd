@@ -21,22 +21,59 @@ const Menu: React.FC = () => {
     (state) => state.menuStore.indexOption,
   );
 
-  const userRole = useAppSelector((state) => state.authStore.info?.fullName); // chỗ này là role không phải fullname
+  const userRole = useAppSelector((state) => state.authStore.role); 
+  
 
-  const menuItems = useMenuItems(userRole ? userRole : "user");
+  const menuItems = useMenuItems();
   const filteredMenuItems = filterMenuItemsByRole(
     menuItems,
-    userRole ? userRole : "user",
+    userRole ,
   );
-
-  const toggleMenuOptions = (index: number) => {
-    if (openIndexes.includes(index)) {
-      setOpenIndexes(openIndexes.filter((i) => i !== index));
+  // const handleMenuOptions = (index: number, path?: string) => {
+  //   const item = filteredMenuItems[index];
+  
+  //   if (item.subItems && item.subItems.length > 0) {
+  //     // Nếu có mục con, toggle menu
+  //     if (openIndexes.includes(index)) {
+  //       setOpenIndexes(openIndexes.filter((i) => i !== index));
+  //     } else {
+  //       setOpenIndexes([...openIndexes, index]);
+  //       setIsOpen(true);
+  //     }
+  //   } else if (path) {
+  //     // Nếu không có mục con, xử lý như một item được chọn
+  //     console.log("path ở else",path)
+  //     navigate(path);
+  //     dispatch(menuActions.setIndexOption(index));
+  //   }
+  // };
+  const handleMenuOptions = (index: number) => {
+    const item = filteredMenuItems[index];
+  
+    if (item.subItems && item.subItems.length > 0) {
+      // Nếu có subItems thì toggle mở/đóng
+      setOpenIndexes((prev) =>
+        prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index]
+      );
+    } else if (item.path) {
+      // Nếu không có subItems, điều hướng trực tiếp
+      console.log("Điều hướng đến:", item.path);
+      navigate(item.path);
+      dispatch(menuActions.setIndexOption(index));
     } else {
-      setOpenIndexes([...openIndexes, index]);
-      setIsOpen(true);
+      console.log("Lỗi: Không có đường dẫn để điều hướng!");
     }
   };
+  
+   const toggleMenuOptions = (index: number) => {
+      if (openIndexes.includes(index)) {
+        setOpenIndexes(openIndexes.filter((i) => i !== index));
+      } else {
+        setOpenIndexes([...openIndexes, index]);
+        setIsOpen(true);
+      }
+    };
+ 
 
   const handleSubItemClick = (
     path: string,
@@ -57,10 +94,11 @@ const Menu: React.FC = () => {
 
   const toggleMenuBottom = () => {
     if (isOpen) {
-      setOpenIndexes([]);
+      setOpenIndexes([]); 
       // setSelectedSubItemIndexes([]); // Reset khi đóng menu
     }
     setIsOpen((prev) => !prev);
+    
     if (!isOpen) {
       setOpenIndexes([currentMenuOption ? currentMenuOption : 0]);
     }
@@ -73,7 +111,7 @@ const Menu: React.FC = () => {
           <div key={index} className="menu-item">
             <div
               className="menu-title"
-              onClick={() => toggleMenuOptions(index)}
+              onClick={() => handleMenuOptions(index)}
             >
               <div className="title">
                 <span className="menu-icon">{item.icon}</span>
@@ -84,7 +122,7 @@ const Menu: React.FC = () => {
                   openIndexes.includes(index) ? "icon-open" : "icon-close"
                 }`}
               >
-                <img src={Arrow} alt="arrow" />
+             {item.arrow === true && <img src={Arrow} alt="arrow" />}
               </span>
             </div>
 
@@ -110,9 +148,10 @@ const Menu: React.FC = () => {
                           : "close"
                       }`}
                     >
-                      {subIndex < item.subItems.length - 1 && (
-                        <div className="overlay" />
-                      )}
+                    {subIndex < item.subItems?.length! - 1 && (
+                      <div className="overlay" />
+                    )}
+
                       <div
                         className={`title-text-${
                           openIndexes.includes(index) && item.subItems

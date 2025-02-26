@@ -10,6 +10,7 @@ import useLogin from "./Hooks/useLogin";
 import { setTokenHeader } from "../../AxiosConfig/axiosConfig";
 import { apiService } from "../../AxiosConfig/apiService";
 import { authActions } from "../../Reduxs/Auth/AuthSlice";
+import { profileActions } from "../../Reduxs/UserInfor/ProfileSlice";
 import { useDispatch } from "react-redux";
 import { apiLoginResponse, DataLoginType } from "../../AxiosConfig/DataType";
 import { jwtDecode } from "jwt-decode";
@@ -54,16 +55,20 @@ const LoginPage: React.FC = () => {
     try {
       setLoading(true);
       const response = (await apiService.login({
-        username: username.trim(),
-        password,
+        username: username,
+        password:password,
       })) as unknown as apiLoginResponse<DataLoginType>;
+
+      const info = response.data;
       const token = response.data.accessToken;
       const decodedToken = jwtDecode<{ unique_name: string; userId: string }>(token);
       console.log("đây là mã giải ", decodedToken.unique_name);
-      dispatch(authActions.setRole(decodedToken.unique_name))
 
-      const info = response.data;
       setTokenHeader(token ? token : "",);
+      dispatch(authActions.setRole(response.data.fullName))
+      dispatch(profileActions.setUnique_name(response.data.fullName))
+      
+     
       sessionStorage.setItem("refreshToken", response.data.refreshToken)
       dispatch(authActions.setAuth(true));
       dispatch(authActions.setInfo(info));

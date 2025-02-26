@@ -2,10 +2,8 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AuthInfor, DataLoginType } from "../../AxiosConfig/DataType";
 
 const initialState: AuthInfor = {
-  isAuth: true,
+  isAuth: false,
   info: null,
-  // unique_name: "",
-  // userId: "",
   role:""
 };
 
@@ -22,13 +20,7 @@ const authSlice = createSlice({
     setRole: (state, action: PayloadAction<string | "">) => {
       state.role = action.payload;
     },
-    // setUserId: (state, action: PayloadAction<string>) => {
-    //   state.userId = action.payload;
-    // },
-    // setUnique_name: (state, action: PayloadAction<string>) => {
-    //   state.unique_name = action.payload;
-    // },
-    ///
+  
    
   },
 });
