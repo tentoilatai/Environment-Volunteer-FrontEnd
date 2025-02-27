@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ToggleMenu from "../../Assets/Image/toggleMenu.svg";
 import { useNavigate } from "react-router-dom";
 import "./Menu.scss";
@@ -6,6 +6,7 @@ import { filterMenuItemsByRole, useMenuItems } from "./Hooks/useMenuItems";
 import Arrow from "../../Assets/Image/ArrowDown.svg";
 import { useDispatch } from "react-redux";
 import { menuActions } from "../../Reduxs/OptionsMenu/OptionsMenuSlice";
+import { statusMenuActions} from "../../Reduxs/OptionsMenu/StatusMenuSlice";
 import { useAppSelector } from "../../store";
 
 const Menu: React.FC = () => {
@@ -16,6 +17,7 @@ const Menu: React.FC = () => {
     number[]
   >([]); // Mảng để lưu chỉ số subItem được chọn cho từng menu
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isFixed, setIsFixed] = useState<boolean>(false); // Thêm state kiểm tra fixed
 
   const currentMenuOption = useAppSelector(
     (state) => state.menuStore.indexOption,
@@ -29,27 +31,10 @@ const Menu: React.FC = () => {
     menuItems,
     userRole ,
   );
-  // const handleMenuOptions = (index: number, path?: string) => {
-  //   const item = filteredMenuItems[index];
-  
-  //   if (item.subItems && item.subItems.length > 0) {
-  //     // Nếu có mục con, toggle menu
-  //     if (openIndexes.includes(index)) {
-  //       setOpenIndexes(openIndexes.filter((i) => i !== index));
-  //     } else {
-  //       setOpenIndexes([...openIndexes, index]);
-  //       setIsOpen(true);
-  //     }
-  //   } else if (path) {
-  //     // Nếu không có mục con, xử lý như một item được chọn
-  //     console.log("path ở else",path)
-  //     navigate(path);
-  //     dispatch(menuActions.setIndexOption(index));
-  //   }
-  // };
+
   const handleMenuOptions = (index: number) => {
     const item = filteredMenuItems[index];
-  
+    setIsOpen(true);
     if (item.subItems && item.subItems.length > 0) {
       // Nếu có subItems thì toggle mở/đóng
       setOpenIndexes((prev) =>
@@ -65,14 +50,6 @@ const Menu: React.FC = () => {
     }
   };
   
-   const toggleMenuOptions = (index: number) => {
-      if (openIndexes.includes(index)) {
-        setOpenIndexes(openIndexes.filter((i) => i !== index));
-      } else {
-        setOpenIndexes([...openIndexes, index]);
-        setIsOpen(true);
-      }
-    };
  
 
   const handleSubItemClick = (
@@ -102,11 +79,33 @@ const Menu: React.FC = () => {
     if (!isOpen) {
       setOpenIndexes([currentMenuOption ? currentMenuOption : 0]);
     }
+   
+    // setIsFixed(true)
+    // console.log("fixx",isFixed)
   };
 
+  const menuRef = useRef<HTMLDivElement | null>(null);
+  useEffect(() => {
+    const handleScroll = () => {
+      if (menuRef.current) {
+        const { top } = menuRef.current.getBoundingClientRect();
+        setIsFixed(top <= 0); // Khi menu chạm đỉnh viewport thì fixed
+
+      }
+     
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+   dispatch(statusMenuActions.setMenustatus(isOpen));
+
   return (
-    <div className={`menu-container-${isOpen ? "open" : "closed"}`}>
-      <div className={`menu-${isOpen ? "open" : "closed"}`}>
+    // <div className={`menu-container-${isOpen ? "open" : "closed"}`}>
+    //   <div className={`menu-${isOpen ? "open" : "closed"}`}>
+    <div ref={menuRef} className={`menu-container-${isOpen ? "open" : "closed"} ${isFixed ? "fixed" : ""}`}>
+    <div className={`menu-${isOpen ? "open" : "closed"} ${isFixed ? "fixed-menu" : ""}`}>
+  
         {filteredMenuItems.map((item, index) => (
           <div key={index} className="menu-item">
             <div
@@ -180,7 +179,7 @@ const Menu: React.FC = () => {
           </div>
         ))}
       </div>
-      <div className="icon-bottom-menu">
+      <div className={`icon-bottom-menu ${isFixed ? "fixed" : ""}`}>
         <img src={ToggleMenu} alt="Menu" onClick={toggleMenuBottom} />
       </div>
     </div>

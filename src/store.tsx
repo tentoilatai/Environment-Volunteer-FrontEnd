@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { searchReducer } from "./Reduxs/FilterTable/SearchSlice";
 import { authReducer } from "./Reduxs/Auth/AuthSlice";
 import { menuReducer } from "./Reduxs/OptionsMenu/OptionsMenuSlice";
+import { statusMenuReducer } from "./Reduxs/OptionsMenu/StatusMenuSlice";
 import searchCreateFormReducer from "./Reduxs/FilterTable/searchSliceCreateForm";
 import { noticeReducer } from "./Reduxs/Notification/Notification";
 import { NotiFormReducer } from "./Reduxs/NotiForm/NotificationSlice";
@@ -18,6 +19,7 @@ export const store = configureStore({
     dropData: dropDownReducer,
     NotiFormStore: NotiFormReducer,
     ProfileStore: profileReducer,
+    statusMenuStore:statusMenuReducer,
   },
 });
 

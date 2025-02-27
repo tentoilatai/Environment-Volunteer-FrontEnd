@@ -32,7 +32,7 @@ const routerManage = () => {
       element: <ComingSoon />,
     },
     {
-      path: "/ListProject",
+      path: "/list-project",
       element: <ListProject />,
     }
   ];

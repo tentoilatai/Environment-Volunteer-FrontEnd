@@ -1,7 +1,13 @@
 import PersonsIcon from "../../../Assets/Image/person.png";
 import ListIcon from "../../../Assets/Image/project.svg";
 import ManageDepart from "../../../Assets/Image/my project.svg";
-import Arrow from "../../../Assets/Image/ArrowDown.svg";
+import Project from "../../../Assets/Image/project.svg"
+import Home from "../../../Assets/Image/home.svg"
+import PJResults from "../../../Assets/Image/pj-result.svg"
+import AllProject from "../../../Assets/Image/file-multiple.svg"
+import User from "../../../Assets/Image/User.svg"
+import Campaign from "../../../Assets/Image/campain.svg"
+import Statistics from "../../../Assets/Image/Statistic.svg"
 
 interface subItems {
   title: string;
@@ -20,29 +26,18 @@ export interface MenuItem {
   arrow: boolean;
 }
 
-// // Hàm tạo subItems dựa trên userRole
-// const createSubItems = (userRole: string): subItems[] => {
-//   return [
-//     { title: "Quản lý dự án", path: "/list-account", role: "admin" },
-//     {
-//       title: "Phòng ban",
-//       path: userRole === "admin" ? "/list-department" : "/list-department",
-//       role: userRole === "admin" ? "admin" : "user",
-//     },
-//   ];
-// };
 
 export const useMenuItems = (): MenuItem[] => [
   {
     title: "Home",
-    icon: <img src={ManageDepart} alt="Persons" />,
+    icon: <img src={Home} alt="Home" />,
     path:"/Home",
     role:"user",
     arrow: false
   },
   {
     title: "Project Management",
-    icon: <img src={PersonsIcon} alt="List" />,
+    icon: <img src={Project} alt="Project Management" />,
     subItems: [
       { title: "My Project", path: "/my-project" },
       { title: "Project Participated", path: "/list-project" },  
@@ -52,21 +47,21 @@ export const useMenuItems = (): MenuItem[] => [
   },
   {
     title: "Project result",
-    icon: <img src={ListIcon} alt="Salary" />,
+    icon: <img src={PJResults} alt="Project result" />,
     path:"/ProjectResult",
     role:  "User",
     arrow: false
   },
   {
     title: "All project",
-    icon: <img src={ListIcon} alt="Salary" />,
+    icon: <img src={AllProject} alt="All project" />,
     path:"/ProjectResult",
     role:  "User",
     arrow: false
   },
   {
     title: "User Management",
-    icon: <img src={PersonsIcon} alt="List" />,
+    icon: <img src={User} alt="User" />,
     subItems: [
       { title: "List Account", path: "/list-project" },
     ],
@@ -75,25 +70,25 @@ export const useMenuItems = (): MenuItem[] => [
   },
   {
     title: "Project Management",
-    icon: <img src={PersonsIcon} alt="List" />,
+    icon: <img src={Project} alt="Project" />,
     subItems: [
       { title: "List Project", path: "/list-project" },
-      { title: "My Project", path: "/list-project" },  
+      { title: "My Project", path: "/My-project" },  
     ],
     role: "Admin",
    arrow: true
   },
   {
     title: "Campaign Management",
-    icon: <img src={ListIcon} alt="Salary" />,
-    subItems: [{ title: "List Campaign", path: "/list" }],
+    icon: <img src={Campaign} alt="Campaign" />,
+    subItems: [{ title: "List Campaign", path: "/list-Campaign" }],
     role:  "Admin",
     arrow: true
   },
   {
     title: "Statistics management",
-    icon: <img src={ListIcon} alt="Salary" />,
-    subItems: [{ title: "Statistics", path: "/list" }],
+    icon: <img src={Statistics} alt="Statistics" />,
+    subItems: [{ title: "Statistics", path: "/list-Statistics" }],
     role:  "Admin",
     arrow: true
   },

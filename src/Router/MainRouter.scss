@@ -4,6 +4,7 @@
   height: 100vh;
   font-family: Arial, sans-serif;
   overflow-x: hidden;
+  overflow-y: auto;
   .Loading-cover {
     position: fixed;
     top: 0;
@@ -27,8 +28,7 @@
       text-align: center;
     }
   }
-}
-
+  
 .content {
   position: relative; //để hiển thị tooltip menu
   display: flex;
@@ -38,8 +38,56 @@
 
 .menu {
   background-color: #f4f4f4;
+  
+
+}
+.fixed-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  // background: #fff; // Màu nền để không bị trong suốt
+  z-index: 1000;
+  // box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  .menu-container-open {
+    height: 100vh;}
+    .menu-container-closed {
+      height: 100vh;
+      
+    }
 }
 
 .main {
   flex: 1; /* Chiếm toàn bộ không gian còn lại */
+  // overflow: auto; /* Đảm bảo có thể cuộn */
+  // height: 100vh; /* Đặt chiều cao cho phép cuộn */
+}
+
+.fixed-main {
+  position: relative;
+  
+}
+.menuopen {
+  padding-left: 310px;
+}
+
+.menuclosed {
+  padding-left: 55px;
+}
+
+&::-webkit-scrollbar {
+  width: 4px;
+}
+
+&::-webkit-scrollbar-track {
+  background: transparent; // Không có màu nền
+}
+
+&::-webkit-scrollbar-thumb {
+  background: #585858;
+  border-radius: 8px;
+}
+
+&::-webkit-scrollbar-thumb:hover {
+  background: #000000;
+}
 }

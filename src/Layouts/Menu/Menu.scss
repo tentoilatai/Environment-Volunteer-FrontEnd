@@ -1,14 +1,18 @@
 .menu-container-open {
   width: 310px;
-  transition: all 0.3s ease;
-  height: 100%;
+  transition: width 0.3s ease;
+  height: 94vh;
   border-right: 1px solid #ccc;
   display: flex;
   flex-direction: column;
   background-color: white;
   justify-content: space-between;
+  position: relative;
 
-
+  &.fixed {
+    position: fixed;
+    width: 310px;
+  }
   .menu-open {
     width: 100%;
     max-height: 840px;
@@ -16,7 +20,10 @@
     overflow-y: auto;
     overflow-x: hidden;
     transition: all 0.3s linear;
-
+    &.fixed-menu {
+      position: fixed;
+      width: 310px;
+         }
     .menu-item {
       transition: all 0.3s linear;
 
@@ -191,7 +198,12 @@
     min-height: 60px;
     background-color: white;
     border-top: 1px solid #ccc;
-
+    position: relative;
+    &.fixed {
+      position: fixed;
+      width: 55px;
+      bottom: 0;
+    }
     img {
       padding: 16px;
       cursor: pointer;
@@ -201,17 +213,26 @@
 
 .menu-container-closed {
   width: 55px;
-  transition: all 0.3s linear;
-  height: 100%;
+  transition: width 0.3s ease;
+  height: 94vh;
   border-right: 1px solid #ccc;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   overflow: hidden;
+  &.fixed {
+    position: fixed;
+  
+  }
 
   .menu-closed {
     height: 100%;
     background-color: #fff;
+    // &.fixed-menu {
+    //   position: fixed;
+    //   width: 55px;
+     
+    // }
 
     .menu-item {
       transition:
@@ -351,7 +372,11 @@
     background-color: white;
     border-top: 1px solid #ccc;
     cursor: pointer;
-
+    &.fixed {
+      position: fixed;
+      bottom: 0;
+      
+    }
     img {
       padding: 16px;
       transform: rotateY(180deg);

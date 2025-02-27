@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import routerManage from "./RouterManage";
 import Header from "../Layouts/Header/Header";
@@ -25,6 +25,8 @@ const MainRouter: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const isAuth = useAppSelector((state) => state.authStore.isAuth);
   const { routerAdmin, routerLogin, routerUser } = routerManage();
+  
+  const isMenuOpen = useAppSelector((state) => state.statusMenuStore.status);
 
   const fetchingAuth = async () => {
     const refreshToken = sessionStorage.getItem("refreshToken");
@@ -77,7 +79,31 @@ const MainRouter: React.FC = () => {
   const [notice, setNotice] = useState("");
   const role = useAppSelector((state) => state.authStore.role);
 
- 
+  const [isFixed, setIsFixed] = useState(false);
+  const mainRef = useRef<HTMLDivElement | null>(null);
+  useEffect(() => {
+    const mainElement = mainRef.current;
+    
+    if (!mainElement) return;
+  
+    const handleScroll = () => {
+      console.log("Scroll position:", mainElement.scrollTop);
+      if (mainElement.scrollTop > 55) {
+        setIsFixed(true);
+      } else {
+        setIsFixed(false);
+      }
+    };
+  
+    mainElement.addEventListener("scroll", handleScroll);
+    
+    return () => {
+      mainElement.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+  
+  
+  
   useEffect(() => {
     fetchingAuth();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -90,7 +116,7 @@ const MainRouter: React.FC = () => {
   }, [isAuth]);
 
   return (
-    <div className="main-container">
+    <div className="main-container" ref={mainRef}>
       <div className={`Loading-cover ${loading ? "active" : ""}`}>
         {loading && (
           <div className="modal">
@@ -102,12 +128,13 @@ const MainRouter: React.FC = () => {
       {!initCheckLogin ? (
         isAuth ? (
           role === "admin" ? <>
-            <Header />
-            <div className="content">
-              <div className="menu">
+            <Header  />
+            <div className="content" >
+              <div className={`menu ${isFixed ? "fixed-menu" : ""}`}>
                 <Menu />
               </div>
-              <div className="main">
+
+              <div className={`main ${isFixed ? "fixed-main" : ""}`}>
                 <Routes>
                   {routerAdmin.map((route, i) => (
                     <Route {...route} key={i} />
@@ -118,10 +145,10 @@ const MainRouter: React.FC = () => {
           </> :  <>
             <Header />
             <div className="content">
-              <div className="menu">
+            <div className={`menu ${isFixed ? "fixed-menu" : ""}`}>
                 <Menu />
               </div>
-              <div className="main">
+              <div className={`main ${isFixed ? (isMenuOpen ? "fixed-main menuopen" : "fixed-main menuclosed") : ""}`}>
                 <Routes>
                   {routerUser.map((route, i) => (
                     <Route {...route} key={i} />
