@@ -5,6 +5,8 @@
   font-family: Arial, sans-serif;
   overflow-x: hidden;
   overflow-y: auto;
+  scroll-behavior: smooth; // Cuộn mượt
+  transition: all 0.3s ease-in-out;
   .Loading-cover {
     position: fixed;
     top: 0;
@@ -68,11 +70,14 @@
 }
 .menuopen {
   padding-left: 310px;
+  transition: padding-left 0.3s ease-in-out;
 }
 
 .menuclosed {
   padding-left: 55px;
+  transition: padding-left 0.3s ease-in-out;
 }
+
 
 &::-webkit-scrollbar {
   width: 4px;

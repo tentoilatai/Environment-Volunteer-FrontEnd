@@ -23,7 +23,7 @@ const Header = () => {
   };
 
   const handleGoHome = () => {
-    navigate("/list");
+    navigate("/Welcome");
   };
 
   const confirmPopup = () => {

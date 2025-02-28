@@ -77,8 +77,9 @@ const MainRouter: React.FC = () => {
 
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [notice, setNotice] = useState("");
-  const role = useAppSelector((state) => state.authStore.role);
-
+  const role = useAppSelector((state) => state.authStore.role).toLocaleLowerCase();
+  
+ 
   const [isFixed, setIsFixed] = useState(false);
   const mainRef = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
@@ -88,6 +89,7 @@ const MainRouter: React.FC = () => {
   
     const handleScroll = () => {
       console.log("Scroll position:", mainElement.scrollTop);
+      console.log(role)
       if (mainElement.scrollTop > 55) {
         setIsFixed(true);
       } else {
